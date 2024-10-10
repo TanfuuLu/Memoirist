@@ -1,0 +1,66 @@
+<div class="bg-cover w-screen h-screen z-10 opacity-95" style="background-image: url('img/pixelcut-export.png')">
+  <div class="flex justify-center" id="website_name">
+    <img src="img\icon.png" style="width: 100px;height: 90px;" class="my-1" >
+    <h1 class="text-white font-Italiana text-5xl p-5 tracking-[.25em]">
+      MEMOIRIST
+    </h1>
+  </div>
+  <div id="website_quotes">
+    <div class="flex justify-center">
+      <p class="text-white font-Italiana text-xl">
+        "A memoirist knows life is a book,
+      </p>
+    </div>
+    <div class="flex justify-center">
+      <p class="text-white font-Italiana text-xl">
+        but its true meaning lies in the pages they choose to share."
+      </p>
+    </div>
+  </div>
+  <div class="text-white p-3 flex justify-center">
+    <div class="border-none rounded-2xl w-fit h-fit p-5 bg-black bg-opacity-90">
+      <div class="flex justify-center p-3 font-bold text-xl ">
+        <h5>Welcome to Memoirist</h5>
+      </div>
+      <div class="">
+        <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+          <div>
+            <label class="font-bold">Username or Email:</label>
+            <input
+              type="text"
+              id="Email"
+              formControlName="Email"
+              class="text-white block bg-stone-800 border-none rounded p-1 my-2"
+              size="35"
+            />
+          </div>
+          <div>
+            <label class="font-bold">Password:</label>
+            <input
+              type="text"
+              id="Password"
+              formControlName="Password"
+              class="text-white block bg-stone-800 border-none rounded p-1 my-2"
+              size="35"
+            />
+          </div>
+          <div class="bg-white rounded-xl flex justify-center my-3">
+            <button
+              class="font-bold text-black border-none m-1"
+              type="submit"
+              [disabled]="!loginForm.valid"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="flex justify-between m-1 font-bold">
+        <a class="" routerLink="/sign-in"
+         routerLinkActive="activebutton" 
+        >Sign In</a>
+        <p class="font-bold">Forget Password</p>
+      </div>
+    </div>
+  </div>
+</div>

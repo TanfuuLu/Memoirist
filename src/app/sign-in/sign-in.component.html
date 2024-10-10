@@ -1,0 +1,118 @@
+<div
+  class="bg-cover w-screen h-screen min-w-fit min-h-fit z-10 opacity-95"
+  style="background-image: url('img/pixelcut-export.png')"
+>
+  <div class="flex justify-center" id="website_name">
+    <h1 class="text-white font-Italiana text-4xl p-3 tracking-[.25em]">
+      MEMOIRIST
+    </h1>
+  </div>
+  <div id="website_quotes">
+    <div class="flex justify-center">
+      <p class="text-white font-Italiana text-xl">
+        "A memoirist knows life is a book,
+      </p>
+    </div>
+    <div class="flex justify-center">
+      <p class="text-white font-Italiana text-xl">
+        but its true meaning lies in the pages they choose to share."
+      </p>
+    </div>
+  </div>
+  <div class="text-white p-3 flex justify-center">
+    <div class="border-none rounded-2xl w-fit h-fit p-5 bg-black bg-opacity-90">
+      <div class="flex justify-center font-bold text-xl m-1">
+        <h5>Sign In New Account</h5>
+      </div>
+      <div class="">
+        <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+          <div>
+            <label class="font-bold">Email:</label>
+            <input
+              type="text"
+              id="Email"
+              formControlName="Email"
+              class="text-white block bg-stone-800 border-none rounded p-1"
+              size="35"
+            />
+          </div>
+          <div>
+            <div class="flex justify-around">
+              <label class="font-bold justify-start">First Name</label>
+              <label class="font-bold">Last Name</label>
+            </div>
+            <div class="flex justify-around">
+              <input
+                type="text"
+                id="LastName"
+                formControlName="FirstName"
+                class="text-white block bg-stone-800 border-none rounded p-1"
+                size="13"
+              /> 
+               <input
+                type="text"
+                id="LastName"
+                formControlName="LastName"
+                class="text-white block bg-stone-800 border-none rounded p-1"
+                size="13"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="font-bold">Username:</label>
+            <input
+              type="text"
+              id="Username"
+              formControlName="Username"
+              class="text-white block bg-stone-800 border-none rounded p-1"
+              size="35"
+            />
+          </div>
+          <div>
+            <label class="font-bold">Password:</label>
+            <input
+              type="text"
+              id="Password"
+              formControlName="Password"
+              class="text-white block bg-stone-800 border-none rounded p-1 "
+              size="35"
+            />
+          </div>
+          <div>
+            <label class="font-bold">Confirm Password:</label>
+            <input
+              type="text"
+              id="ConfirmPassword"
+              formControlName="ConfirmPassword"
+              class="text-white block bg-stone-800 border-none rounded p-1 "
+              size="35"
+            />
+          </div>
+          <div>
+            <label class="font-bold">Phone Number:</label>
+            <input
+              type="text"
+              id="PhoneNumber"
+              formControlName="PhoneNumber"
+              class="text-white block bg-stone-800 border-none rounded p-1 "
+              size="35"
+            />
+          </div>
+          <div class="bg-white rounded-xl flex justify-center my-3">
+            <button
+              class="font-bold text-black border-none m-1"
+              type="submit"
+              [disabled]="!loginForm.valid"
+            >
+              Create Your Pen.
+            </button>
+          </div>
+          <div class="font-bold">
+            <a routerLink="/login" routerLinkActive="active">Login</a>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>

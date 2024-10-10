@@ -1,0 +1,100 @@
+<div
+  class="grid grid-cols-[10%_87.2%] gap-2 h-screen w-screen min-h-fit min-w-fit bg-black"
+>
+  <div>
+    <app-sidebar></app-sidebar>
+  </div>
+  <div
+    class="bg-neutral-950 mx-60 mt-10 rounded-t-3xl overflow-y-scroll no-scrollbar"
+  >
+    <div class="fixed inset-x-14 top-0 flex justify-center min-w-full min-h-10">
+      <h1 class="font-bold text-lg text-white p-2">Profile</h1>
+    </div>
+    <div class="grid grid-cols-12 text-white">
+      <div class="col-span-10 m-5 mr-0 mb-0 p-5 rounded-3xl">
+        <p class="text-3xl">Lu Tanfuu</p>
+        <p class="">&#64;ltf_tanfuu</p>
+        <p class="mt-5">
+          "Good cooking takes time. If you are made to wait, it is to serve you
+          better, and to please you." - The Mythical-Month Man
+        </p>
+        <p class="mt-5">+1.5k follower</p>
+      </div>
+      <div class="col-span-2 m-5 ml-0">
+        <img
+          src="img/avatar (2).jpg"
+          width="80%"
+          height="80%"
+          class="rounded-full"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="flex justify-center text-white mx-10">
+      <button
+        type="button"
+        class="w-full rounded-full border-2 border-gray-500"
+      >
+        Edit Profile
+      </button>
+    </div>
+    <div class="bg-neutral-900 my-2">
+      <div class="text-white flex ">
+            <label  class="min-w-[33%] text-center">
+              <input
+                [(ngModel)]="selectedOption"
+                type="radio"
+                id="select-profile-1"
+                name="Profile"
+                value="post"
+                class="hidden peer"
+              />
+              <div class=" peer-checked:border-b-2">Post</div>
+            </label>
+            <label  class="min-w-[33%] text-center">
+              <input
+                [(ngModel)]="selectedOption"
+                type="radio"
+                id="select-profile-1"
+                name="Profile"
+                value="following-story"
+                class="hidden peer"
+              />
+              <div class=" peer-checked:border-b-2">Following Story</div>
+            </label>
+            <label  class="min-w-[33%] text-center">
+              <input
+                [(ngModel)]="selectedOption"
+                type="radio"
+                id="select-profile-1"
+                name="Profile"
+                value="story"
+                class="hidden peer"
+              />
+              <div class=" peer-checked:border-b-2">Story</div>
+            </label>
+          <!-- <div class="">
+            <li class=" ">
+              <input
+                [(ngModel)]="selectedOption"
+                type="radio"
+                id="select-profile-1"
+                name="Profile"
+                value="post"
+                class="hidden peer"
+              />
+              <label
+                for="select-profile-1"
+                class="text-white peer-checked:font-bold peer-checked:border-b-2"
+              >
+                Post
+              </label>
+            </li>
+          </div> -->
+      </div>
+    </div>
+    <div class="w-full bg-slate-600">
+      
+    </div>
+  </div>
+</div>
