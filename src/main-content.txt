@@ -1,0 +1,13 @@
+<div
+  class="grid grid-cols-[10%_87.2%] gap-2 h-screen w-screen min-h-fit min-w-fit bg-black">
+  <div>
+    <app-sidebar></app-sidebar>
+  </div>
+  <div
+    class="bg-neutral-950 mx-60 mt-10 rounded-t-3xl overflow-y-scroll no-scrollbar"
+  >
+    <div class="fixed inset-x-14 top-0 flex justify-center min-w-full min-h-10">
+      <h1 class="font-bold text-lg text-white p-2">Profile</h1>
+    </div>
+    </div>
+</div>
