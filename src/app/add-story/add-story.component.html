@@ -1,0 +1,76 @@
+<div class=" w-full min-w-fit h-screen bg-black ">
+  <!-- Sticky bar topic  -->
+  <div class="flex justify-center w-full text-center text-white bg-black">
+    <h1 class="font-bold text-lg w-full fixed ">Add Story</h1>
+  </div>
+  <div class="mt-[5vh] bg-black">
+    <div class=" ml-[8%] border-2 h-[95vh] overflow-scroll no-scrollbar rounded-3xl bg-neutral-900">
+      <form action="" class="flex h-[95vh]">
+        <div class="w-[25%] ">
+          <div class="h-[30%] w-[100%]  text-white ">
+            <div class="flex justify-center border-2 shadow-md border-neutral-700 rounded-full m-2">
+              <p class="m-2">Tên truyện</p>
+            </div>
+            <div>
+              <label for="storyName" class="flex justify-center">hoặc chọn truyện đã tồn tại</label>
+              <div class="flex justify-center m-1 ">
+                <select name="" id="storyName"
+                  class="w-[90%] px-2 bg-transparent border-2 rounded-3xl border-neutral-700">
+                  <option value="" class="bg-neutral-900 ">none</option>
+                  <option value="" class="bg-neutral-900">Già Thiên</option>
+                  <option value="" class="bg-neutral-900">Linh Vũ Thiên Hạ</option>
+                </select>
+              </div>
+            </div>
+            <div class="h-[45%] m-2 ">
+              <textarea name="" id=""
+                class="resize-none border border-neutral-700 w-full h-full bg-transparent focus:outline-neutral-700  focus:outline-none rounded-3xl p-2"></textarea>
+            </div>
+          </div>
+          <div class="h-[45%]  w-[100%] text-white">
+            <div class="flex justify-center border-2 border-neutral-700  shadow-md rounded-full p-1 mx-2">
+              <p>Giới thiệu:</p>
+            </div>
+            <div class="h-[85%] m-2 ">
+              <textarea name="" id=""
+                class="resize-none border border-neutral-700 w-full h-full bg-transparent focus:outline-neutral-700  focus:outline-none rounded-3xl p-2 no-scrollbar"></textarea>
+            </div>
+          </div>
+          <div class="h-[20%] text-white border-neutral-700 border rounded-3xl p-1 mx-2 ">
+            <input type="checkbox" value="accepted" class="m-2 size-3 text-red-700">
+            <button type="button" class="text-sm underline text-wrap" (click)="openModal()">I agree with the terms and
+              conditions.</button>
+            <div [ngClass]="isModalOpen ? 'block': 'hidden'"
+              class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center overflow-y-scroll no-scrollbar"
+              (click)="closeModalClickOutside($event)">
+              <div class="fixed top-6 max-w-3xl w-full">
+                <div class="w-full flex justify-center mb-2">
+                  <p>THE TERMS AND CONDITIONS</p>
+                  <button (click)="closeModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </button>
+                </div>
+                <div class=" text-black border-2 h-screen overflow-scroll rounded-3xl no-scrollbar bg-white p-2">
+                  <span>asdadasds</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-center mt-10">
+              <button class="border-2 px-5 ">Create Your Story</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-[75%] bg-neutral-600 overflow-scroll no-scrollbar">
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

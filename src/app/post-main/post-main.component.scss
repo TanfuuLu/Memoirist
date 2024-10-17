@@ -7,7 +7,9 @@
     border-radius: 100vh;
     background: #f7f4ed;
   }
-
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
 
 .heart-checkbox {
     display: inline-block;

@@ -14,27 +14,47 @@
       <div class="fixed top-1/4 max-w-2xl w-full">
         <h2 class="m-5 flex justify-center font-bold">New Post</h2>
         <div class="bg-neutral-900 rounded-xl shadow-xl border  border-neutral-700">
-          <div class="p-2 rounded-lg  flex">
-            <img src="img/avatar (2).jpg" class="rounded-2xl w-12 h-12" alt="">
-            <div class="ml-5 w-full">
-              <p>ltf_tanfuu</p>
-              <textarea name="" id="" rows="1"
-                class="resize-none  min-w-[90%] flex  bg-transparent focus:outline-none no-scrollbar"
-                placeholder="Write your context"></textarea>
-            </div>
-            <div>
-              <button (click)="closeModal()">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-              </button>
+          <div class="fixed top-1/4 max-w-2xl w-full">
+            <h2 class="m-5 flex justify-center font-bold">New Post</h2>
+            <div class="bg-neutral-900 rounded-xl shadow-xl border  border-neutral-700">
+              <div class="p-2 rounded-lg flex">
+                <img src="img/avatar (2).jpg" class="rounded-2xl w-12 h-12" alt="">
+                <div class="ml-6 w-full">
+                  <p>ltf_tanfuu</p>
+                  <p class="text-xs text-neutral-600">16/10//2024</p>
+                </div>
+                <div>
+                  <button (click)="closeModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <form action="" class="ml-20">
+                <textarea name="" id="" rows="1"
+                  class="resize-none  min-w-[90%] flex  bg-transparent focus:outline-none no-scrollbar" [rows]="3"
+                  placeholder="Write your context"></textarea>
+                <div class="w-7">
+                  <label for="uploadStory" class="cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                    
+                    <input type="file" id="uploadStory" name="uploadStory" hidden>
+                  </label>
+
+                </div>
+                <div class=" p-5 flex justify-end">
+                  <button type="button" class="rounded-xl border-2 px-3 py-2">Post</button>
+                </div>
+              </form>
+
             </div>
           </div>
-          <div class="m-5 p-5 flex justify-end">
-            <button type="button" class="rounded-xl border-2 px-3 py-2">Post</button>
-          </div>
+          
         </div>
       </div>
     </div>

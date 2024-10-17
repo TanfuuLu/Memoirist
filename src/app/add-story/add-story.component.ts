@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { AppComponent } from "../app.component";
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-newfeeds-user',
+  selector: 'app-add-story',
   standalone: true,
-  imports: [SidebarComponent, AppComponent,RouterLink, RouterLinkActive, NgClass],
-  templateUrl: './newfeeds-user.component.html',
-  styleUrl: './newfeeds-user.component.scss'
+  imports: [SidebarComponent, NgClass],
+  templateUrl: './add-story.component.html',
+  styleUrl: './add-story.component.scss'
 })
-export class NewfeedsUserComponent {
+export class AddStoryComponent {
   isModalOpen = false;
   openModal(){
     this.isModalOpen =true;

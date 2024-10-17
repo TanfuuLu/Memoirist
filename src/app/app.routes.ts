@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { NewfeedsUserComponent } from './newfeeds-user/newfeeds-user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostMainComponent } from './post-main/post-main.component';
+import { AddStoryComponent } from './add-story/add-story.component';
 
 export const routes: Routes = [
    {
@@ -20,10 +21,13 @@ export const routes: Routes = [
       path: 'profile', component: ProfileComponent,
    },
    {
-      path: '', component: PostMainComponent,
+      path: 'post', component: PostMainComponent,
+   },
+   {
+      path:'', component:AddStoryComponent,
       children:[
          {
-            path:'post-main', component: PostMainComponent
+            path:'add-story',component:AddStoryComponent
          }
       ]
    }
