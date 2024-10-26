@@ -12,13 +12,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class SignInComponent {
   loginForm!: FormGroup;
   constructor(){
-    // this.loginForm = this.fromBuilder.group({
-    //   // username: ['', Validators.required],
-    //   // password: ['', Validators.required],
-    //   // firstname: ['',Validators.required],
-    //   // lastname: ['',Validators.required],
-    //   // confirmPassword: ['',Validators.required],
-    // })
     this.loginForm = new FormGroup({
       Email: new FormControl(null, [Validators.required]),
       Username: new FormControl(null, [Validators.required]),

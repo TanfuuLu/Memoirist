@@ -6,6 +6,7 @@ import { NewfeedsUserComponent } from './newfeeds-user/newfeeds-user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostMainComponent } from './post-main/post-main.component';
 import { AddStoryComponent } from './add-story/add-story.component';
+import { StoryInformationComponent } from './story-information/story-information.component';
 
 export const routes: Routes = [
    {
@@ -24,12 +25,11 @@ export const routes: Routes = [
       path: 'post', component: PostMainComponent,
    },
    {
-      path:'', component:AddStoryComponent,
-      children:[
-         {
-            path:'add-story',component:AddStoryComponent
-         }
-      ]
+      path:'add-story', component:AddStoryComponent,
+      
+   },
+   {
+      path:'', component:StoryInformationComponent
    }
 
 ];

@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-newfeeds-user',
   standalone: true,
-  imports: [SidebarComponent, AppComponent,RouterLink, RouterLinkActive, NgClass],
+  imports: [ AppComponent,RouterLink, RouterLinkActive, NgClass],
   templateUrl: './newfeeds-user.component.html',
   styleUrl: './newfeeds-user.component.scss'
 })

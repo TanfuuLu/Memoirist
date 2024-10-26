@@ -1,45 +1,36 @@
-<div class=" w-full min-w-fit h-screen bg-black ">
+<div class=" w-full min-w-fit h-scree " >
   <!-- Sticky bar topic  -->
-  <div class="flex justify-center w-full text-center text-white bg-black">
+  <div class="flex justify-center w-full text-center text-white ">
     <h1 class="font-bold text-lg w-full fixed ">Add Story</h1>
   </div>
-  <div class="mt-[5vh] bg-black">
-    <div class=" ml-[8%] border-2 h-[95vh] overflow-scroll no-scrollbar rounded-3xl bg-neutral-900">
-      <form action="" class="flex h-[95vh]">
-        <div class="w-[25%] ">
-          <div class="h-[30%] w-[100%]  text-white ">
-            <div class="flex justify-center border-2 shadow-md border-neutral-700 rounded-full m-2">
-              <p class="m-2">Tên truyện</p>
+  <div class="mt-[5vh]  " >
+    <div
+      class=" mx-[30%] flex justify-center border-2 h-[95vh] overflow-scroll no-scrollbar rounded-3xl bg-black">
+      <form [formGroup]="formAddStory" class="flex h-[95vh] w-full">
+        <div class="w-[100%]">
+          <div class="h-[30%]   text-white ">
+            <div class="flex justify-center m-2">
+              <p class="m-2">TÊN TRUYỆN</p>
             </div>
-            <div>
-              <label for="storyName" class="flex justify-center">hoặc chọn truyện đã tồn tại</label>
-              <div class="flex justify-center m-1 ">
-                <select name="" id="storyName"
-                  class="w-[90%] px-2 bg-transparent border-2 rounded-3xl border-neutral-700">
-                  <option value="" class="bg-neutral-900 ">none</option>
-                  <option value="" class="bg-neutral-900">Già Thiên</option>
-                  <option value="" class="bg-neutral-900">Linh Vũ Thiên Hạ</option>
-                </select>
-              </div>
-            </div>
-            <div class="h-[45%] m-2 ">
-              <textarea name="" id=""
-                class="resize-none border border-neutral-700 w-full h-full bg-transparent focus:outline-neutral-700  focus:outline-none rounded-3xl p-2"></textarea>
+
+            <div class="h-[45%] ">
+              <textarea name="" id="inputStoryName" formControlName="storyName"
+                class="resize-none border  w-full h-full bg-transparent focus:outline-neutral-700  focus:outline-none p-2"></textarea>
             </div>
           </div>
           <div class="h-[45%]  w-[100%] text-white">
-            <div class="flex justify-center border-2 border-neutral-700  shadow-md rounded-full p-1 mx-2">
-              <p>Giới thiệu:</p>
+            <div class="flex justify-center p-1 mx-2">
+              <p>GIỚI THIỆU:</p>
             </div>
-            <div class="h-[85%] m-2 ">
-              <textarea name="" id=""
-                class="resize-none border border-neutral-700 w-full h-full bg-transparent focus:outline-neutral-700  focus:outline-none rounded-3xl p-2 no-scrollbar"></textarea>
+            <div class="h-[85%]">
+              <textarea name="" id="" formControlName="storyBio"
+                class="resize-none border  w-full h-full bg-transparent focus:outline-neutral-700  focus:outline-none  p-2 no-scrollbar"></textarea>
             </div>
           </div>
-          <div class="h-[20%] text-white border-neutral-700 border rounded-3xl p-1 mx-2 ">
-            <input type="checkbox" value="accepted" class="m-2 size-3 text-red-700">
-            <button type="button" class="text-sm underline text-wrap" (click)="openModal()">I agree with the terms and
-              conditions.</button>
+          <div class="h-[20%] text-white  border p-1 mt-2 ">
+            <input formControlName="acceptedTerms" checked="true" type="checkbox" class="m-2 size-3 text-red-700">
+            <button type="button" class="text-sm underline text-wrap" (click)="openModal()">I agree with the Terms and
+              Conditions.</button>
             <div [ngClass]="isModalOpen ? 'block': 'hidden'"
               class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center overflow-y-scroll no-scrollbar"
               (click)="closeModalClickOutside($event)">
@@ -59,15 +50,24 @@
                 </div>
               </div>
             </div>
+            @if(formAddStory.get('acceptedTerms')?.value == false){
             <div class="flex justify-center mt-10">
-              <button class="border-2 px-5 ">Create Your Story</button>
+              <button disabled type="submit" (click)="onSubmit()"
+                class=" border-2 px-5 rounded-2xl py-3">Create Your Story</button>
             </div>
+            }@else {
+            <div class="flex justify-center mt-10">
+
+              <button type="submit" (click)="onSubmit()"
+                class="hover:bg-neutral-900 bg-neutral-800 hover:shadow-lg border-2 px-5 rounded-2xl py-3">Create Your
+                Story</button>
+
+            </div>
+            }
           </div>
         </div>
 
-        <div class="w-[75%] bg-neutral-600 overflow-scroll no-scrollbar">
 
-        </div>
 
       </form>
 

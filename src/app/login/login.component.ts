@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { Router } from 'express';
 
 @Component({
@@ -17,10 +17,14 @@ export class LoginComponent {
       Email: new FormControl(null,Validators.required),
       Password: new FormControl(null,Validators.required)
     })
+   
   }
   submitForm(){
     if(this.loginForm.valid){
       console.log(this.loginForm.value);
     }
+   
   }
+
+  
 }

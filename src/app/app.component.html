@@ -1,3 +1,7 @@
-<app-sidebar></app-sidebar>
+@if (urlName == false) {
+    <app-sidebar></app-sidebar>
+}
 
-<router-outlet></router-outlet>
+<div class="bg-cover min-w-fit min-h-fit z-10 bg-[url('/img/background_web.png')]">
+    <router-outlet></router-outlet>
+</div>

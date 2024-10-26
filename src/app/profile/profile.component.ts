@@ -6,12 +6,13 @@ import { PostComponent } from "./post/post.component";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FollowingStoryComponent } from './following-story/following-story.component';
 import { StoryComponent } from './story/story.component';
+import { Router } from 'express';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [SidebarComponent, NewfeedsUserComponent, FormsModule,
-     PostComponent,FollowingStoryComponent, StoryComponent],
+  imports: [ NewfeedsUserComponent, FormsModule,
+     PostComponent,FollowingStoryComponent, StoryComponent, RouterLink, RouterLinkActive],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

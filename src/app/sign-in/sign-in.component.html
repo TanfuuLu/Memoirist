@@ -1,7 +1,5 @@
-<div
-  class="bg-cover w-screen h-screen min-w-fit min-h-fit z-10 opacity-95"
-  style="background-image: url('img/pixelcut-export.png')"
->
+<div class="bg-cover w-screen h-screen min-w-fit min-h-fit z-10 bg-[url('/img/background_web.png')]"
+  >
   <div class="flex justify-center" id="website_name">
     <h1 class="text-white font-Italiana text-4xl p-3 tracking-[.25em]">
       MEMOIRIST
@@ -28,13 +26,8 @@
         <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
           <div>
             <label class="font-bold">Email:</label>
-            <input
-              type="text"
-              id="Email"
-              formControlName="Email"
-              class="text-white block bg-stone-800 border-none rounded p-1"
-              size="35"
-            />
+            <input type="text" id="Email" formControlName="Email"
+              class="text-white block bg-stone-800 border-none rounded p-1" size="35" />
           </div>
           <div>
             <div class="flex justify-around">
@@ -42,68 +35,34 @@
               <label class="font-bold">Last Name</label>
             </div>
             <div class="flex justify-around">
-              <input
-                type="text"
-                id="LastName"
-                formControlName="FirstName"
-                class="text-white block bg-stone-800 border-none rounded p-1"
-                size="13"
-              /> 
-               <input
-                type="text"
-                id="LastName"
-                formControlName="LastName"
-                class="text-white block bg-stone-800 border-none rounded p-1"
-                size="13"
-              />
+              <input type="text" id="LastName" formControlName="FirstName"
+                class="text-white block bg-stone-800 border-none rounded p-1" size="13" />
+              <input type="text" id="LastName" formControlName="LastName"
+                class="text-white block bg-stone-800 border-none rounded p-1" size="13" />
             </div>
           </div>
           <div>
             <label class="font-bold">Username:</label>
-            <input
-              type="text"
-              id="Username"
-              formControlName="Username"
-              class="text-white block bg-stone-800 border-none rounded p-1"
-              size="35"
-            />
+            <input type="text" id="Username" formControlName="Username"
+              class="text-white block bg-stone-800 border-none rounded p-1" size="35" />
           </div>
           <div>
             <label class="font-bold">Password:</label>
-            <input
-              type="text"
-              id="Password"
-              formControlName="Password"
-              class="text-white block bg-stone-800 border-none rounded p-1 "
-              size="35"
-            />
+            <input type="text" id="Password" formControlName="Password"
+              class="text-white block bg-stone-800 border-none rounded p-1 " size="35" />
           </div>
           <div>
             <label class="font-bold">Confirm Password:</label>
-            <input
-              type="text"
-              id="ConfirmPassword"
-              formControlName="ConfirmPassword"
-              class="text-white block bg-stone-800 border-none rounded p-1 "
-              size="35"
-            />
+            <input type="text" id="ConfirmPassword" formControlName="ConfirmPassword"
+              class="text-white block bg-stone-800 border-none rounded p-1 " size="35" />
           </div>
           <div>
             <label class="font-bold">Phone Number:</label>
-            <input
-              type="text"
-              id="PhoneNumber"
-              formControlName="PhoneNumber"
-              class="text-white block bg-stone-800 border-none rounded p-1 "
-              size="35"
-            />
+            <input type="text" id="PhoneNumber" formControlName="PhoneNumber"
+              class="text-white block bg-stone-800 border-none rounded p-1 " size="35" />
           </div>
           <div class="bg-white rounded-xl flex justify-center my-3">
-            <button
-              class="font-bold text-black border-none m-1"
-              type="submit"
-              [disabled]="!loginForm.valid"
-            >
+            <button class="font-bold text-black border-none m-1" type="submit" [disabled]="!loginForm.valid">
               Create Your Pen.
             </button>
           </div>
@@ -112,7 +71,7 @@
           </div>
         </form>
       </div>
-      
+
     </div>
   </div>
 </div>

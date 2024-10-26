@@ -5,7 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-post-main',
   standalone: true,
-  imports: [SidebarComponent,RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './post-main.component.html',
   styleUrl: './post-main.component.scss'
 })
