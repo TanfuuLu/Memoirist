@@ -1,16 +1,24 @@
 import { Routes } from '@angular/router';
 import path from 'path';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { LoginComponent } from './login/login.component';
-import { NewfeedsUserComponent } from './newfeeds-user/newfeeds-user.component';
-import { ProfileComponent } from './profile/profile.component';
-import { PostMainComponent } from './post-main/post-main.component';
-import { AddStoryComponent } from './add-story/add-story.component';
-import { StoryInformationComponent } from './story-information/story-information.component';
+import { SignInComponent } from './authenticate/sign-in/sign-in.component';
+import { NewfeedsUserComponent } from './social/newfeeds-user/newfeeds-user.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { PostMainComponent } from './social/post-main/post-main.component';
+import { AddStoryComponent } from './story/add-story/add-story.component';
+import { StoryInformationComponent } from './story/story-information/story-information.component';
+import { LoginComponent } from './authenticate/login/login.component';
+import { ViewProfileComponent } from './user/view-profile/view-profile.component';
+import { AddChapterComponent } from './story/add-chapter/add-chapter.component';
+import { Component } from '@angular/core';
+import { UserReplyComponent } from './social/user-reply/user-reply.component';
+import { RefreshComponentComponent } from './refresh-component/refresh-component.component';
 
 export const routes: Routes = [
    {
       path: 'sign-in', component: SignInComponent
+   },
+   {
+      path: '', redirectTo:"/login", pathMatch:'full'
    },
    {
       path: 'login', component: LoginComponent
@@ -19,17 +27,30 @@ export const routes: Routes = [
       path: 'newfeeds', component: NewfeedsUserComponent
    },
    {
-      path: 'profile', component: ProfileComponent,
+      path: 'profile/:id', component: ProfileComponent,
    },
    {
       path: 'post', component: PostMainComponent,
    },
    {
-      path:'add-story', component:AddStoryComponent,
-      
+      path: 'post/user-reply',
+      component: UserReplyComponent
    },
    {
-      path:'', component:StoryInformationComponent
-   }
+      path: 'add-story', component: AddStoryComponent,
 
+   },
+   {
+      path: 'story-info', component: StoryInformationComponent
+   },
+   {
+      path: 'view-profile/:id', component: ViewProfileComponent,
+
+   },
+   {
+      path: 'add-chapter', component: AddChapterComponent
+   },
+   {
+      path: 'Refresh', component: RefreshComponentComponent
+   }
 ];

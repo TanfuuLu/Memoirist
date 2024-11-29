@@ -13,6 +13,9 @@
     "src/main.server.ts",
     "server.ts"
   ],
+  "angularCompilerOptions": {
+    "disableIntrinsicImageWarnings": true
+  },
   "include": [
     "src/**/*.d.ts"
   ]

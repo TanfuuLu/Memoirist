@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Event, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './social/sidebar/sidebar.component';
 import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, SidebarComponent],
+  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -22,7 +21,6 @@ export class AppComponent {
       event: NavigationEnd
     ) => {
       this.locationUrl(event.urlAfterRedirects);
-      console.log(this.urlName);
     })
 
   }
