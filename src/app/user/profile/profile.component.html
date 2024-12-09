@@ -13,7 +13,7 @@
         <div class="flex mt-5 justify-between">
           <p class="">{{countFollower}} follower</p>
           <p class="">{{countFollowing}} following </p>
-          <a routerLink="/add-story" routerLinkActive="active" >
+          <a routerLink="/writer/{{userProfile.writerId}}/add-story" routerLinkActive="active" >
             <p class="border-2 rounded-full px-2 bg-neutral-950 hover:bg-neutral-800">Write New Story</p>
           </a>
         </div>
@@ -55,7 +55,7 @@
       <app-following-story></app-following-story>
       }
       @case ('story') {
-      <app-story></app-story>
+      <app-story [userProfile]="userProfile"></app-story>
       }
       }
     </div>

@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { NgClass } from '@angular/common';
+import { isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from '../../Service/Auth.service';
 import { UserProfile, UserService } from '../../Service/User.service';
 
@@ -13,8 +13,8 @@ import { UserProfile, UserService } from '../../Service/User.service';
 })
 export class SidebarComponent {
   isModalOpen = false;
-  userLogin!: UserProfile;
-  userForRoute = sessionStorage.getItem('userId');
+  userForRoute!: string | null;
+  private readonly platformId = inject(PLATFORM_ID);
   openModal(){
     this.isModalOpen =true;
   }
@@ -28,6 +28,9 @@ export class SidebarComponent {
     }
   }
   constructor(private authService: AuthService, private router: Router, private userService: UserService){
+    if(isPlatformBrowser(this.platformId)){
+      this.userForRoute = sessionStorage.getItem("userId");
+    }
     
   }
   logout(){

@@ -5,19 +5,19 @@
     </div>
     <div class="mt-[5vh]  ">
         <div
-            class="mx-[10%] flex justify-center border-2 h-[95vh] overflow-scroll no-scrollbar rounded-3xl bg-neutral-950">
-            <div class="w-[100%]">
-
+            class="mx-[15%] flex justify-center border-2 h-[95vh] overflow-scroll no-scrollbar rounded-3xl bg-neutral-950">
+            <form class="w-[100%]" [formGroup]="formAddChapter" (ngSubmit)="onSubmit()">
+                
                 <div class="flex text-white h-[10%] w-[100%] justify-between ">
                     <div class="m-2">
                         <!-- Show tên truyện khi chọn -->
-                        <p class=" border p-2 bg-stone-900 rounded-xl ">Tên Truyện: Già Thiên</p>
+                        <p class=" border p-2 bg-stone-900 rounded-xl ">Tên Truyện: {{storyName}}</p>
                     </div>
 
                     <div class="m-2 flex">
                         <p class=" border p-2 h-[80%] bg-stone-900 rounded-xl ">Tên Chương:</p>
                         <!-- Thêm tên chương -->
-                        <textarea name="" id="" formControlName="" class="h-[80%] min-w-[80vh] resize-none border rounded-xl no-scrollbar
+                        <textarea name="" id="" formControlName="chapterTitle" class="h-[80%] min-w-[80vh] resize-none border rounded-xl no-scrollbar
                          bg-transparent focus:outline-neutral-700  focus:outline-none p-2"></textarea>
                     </div>
                 </div>
@@ -28,15 +28,15 @@
                         <div>
                             <button class="border p-2 bg-stone-900 rounded-xl ">Upload File</button>
                             <button class="border p-2 bg-stone-900 rounded-xl mx-5 ">Thêm vào Nháp</button>
-                            <button class="border p-2 bg-stone-900 rounded-xl ">Đăng Tải</button>
+                            <button class="border p-2 bg-stone-900 rounded-xl " type="submit">Đăng Tải</button>
                         </div>
                     </div>
                     <div class="h-full">
-                        <textarea name="" id="" formControlName="storyBio"
+                        <textarea name="" id="" formControlName="chapterContext"
                             class="resize-none border-t rounded-xl  w-full h-full bg-transparent focus:outline-neutral-700  focus:outline-none  p-2 no-scrollbar"></textarea>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

@@ -18,7 +18,14 @@
             <!-- follower -->
             <p class="">{{countFollower}} follower</p>
             <!-- follow button -->
-            <button (click)="followUserFunction()" class="ml-14 px-5 border-2 rounded-3xl hover:bg-slate-950 border-gray-500 bg-neutral-800">Follow</button>
+             @if (!checkFollowing()) {
+              <button (click)="followUserFunction()" class="ml-14 px-5 border-2 rounded-3xl hover:bg-slate-950 border-gray-500 bg-neutral-800">Follow</button>
+
+             }@else {
+              <button (click)="followUserFunction()" class="ml-14 px-5 border-2 rounded-3xl hover:bg-slate-950 border-gray-500 bg-neutral-800">Following</button>
+
+             }
+           
           </div>
         </div>
         <div class="col-span-2 m-5 ml-0">
@@ -45,7 +52,7 @@
       <div class="w-full ">
         @switch (selectedOption) {
         @case('view-post'){
-            <app-view-post></app-view-post>
+            <app-view-post [userProfile]="userProfile"></app-view-post>
         }
         @case ('view-story') {
             <app-view-story></app-view-story>

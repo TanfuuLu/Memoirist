@@ -1,7 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { response } from "express";
-import { BehaviorSubject, catchError, Observable, ObservableLike, tap, throwError } from "rxjs";
+import { resolve } from "path";
+import { writer } from "repl";
+import { BehaviorSubject, catchError, map, Observable, ObservableLike, of, tap, throwError } from "rxjs";
 export interface Writer {
     writerFullname?: string;
     writerUsername?: string;
@@ -13,6 +15,16 @@ export interface Writer {
     roles?: string;
     
   }
+  export class ResetPasswordRequest {
+    email!: string;
+    code!: string;
+    newPassword!: string;
+  }
+  
+  export class VerifyCodeRequest {
+    email!: string;
+    code!: string;
+  }
 @Injectable({
     providedIn:'root',
 })
@@ -23,8 +35,9 @@ export class AuthService {
     private userIdKey = 'userId';
     private currentUserObject = new BehaviorSubject<any>(null);
     currentUser$ = this.currentUserObject.asObservable();
-    constructor(private http: HttpClient){
-
+    checkEmail!: string;
+    constructor(private http: HttpClient ){
+        
     }
     //login function 
     login(account: string, password: string): Observable<any>{
@@ -83,5 +96,48 @@ export class AuthService {
     }
     getUserId(): string | null{
         return sessionStorage.getItem(this.userIdKey);
+    }
+    forgetPassword(email: string): Observable<boolean>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          });
+          const params = new HttpParams().set('writerEmail', email);
+        return this.http.post(`${this.apiBaseUrl}/forgot-password`,null,{observe: 'response', headers, params}).pipe(
+            map(() => {
+                return true;
+            }),
+            catchError((error) => {
+              return of(false);
+            })
+        );
+    }
+    verifyCode(request: VerifyCodeRequest): Observable<boolean>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          });
+          return this.http.post(`${this.apiBaseUrl}/verify-code`, request, {headers}).pipe(
+            map((response) => {
+                return true;
+            }),
+            catchError((error) => {
+                return of(false);
+              })
+          )
+    }
+    resetPassword(request: ResetPasswordRequest): Observable<boolean>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          });
+          return this.http.post(`${this.apiBaseUrl}/reset-password`, request, {headers}).pipe(
+            map((response) => {
+                return true;
+            }),
+            catchError((error) => {
+                return of(false);
+              })
+          )
     }
 }

@@ -12,6 +12,9 @@ import { AddChapterComponent } from './story/add-chapter/add-chapter.component';
 import { Component } from '@angular/core';
 import { UserReplyComponent } from './social/user-reply/user-reply.component';
 import { RefreshComponentComponent } from './refresh-component/refresh-component.component';
+import { ReadChapterComponent } from './story/read-chapter/read-chapter.component';
+import { ForgetPasswordComponent } from './authenticate/forget-password/forget-password.component';
+import { VerifyscreenComponent } from './authenticate/verifyscreen/verifyscreen.component';
 
 export const routes: Routes = [
    {
@@ -22,6 +25,9 @@ export const routes: Routes = [
    },
    {
       path: 'login', component: LoginComponent
+   },
+   {
+      path: 'forget-password', component:ForgetPasswordComponent
    },
    {
       path: 'newfeeds', component: NewfeedsUserComponent
@@ -37,20 +43,26 @@ export const routes: Routes = [
       component: UserReplyComponent
    },
    {
-      path: 'add-story', component: AddStoryComponent,
+      path: 'verify-email', component: VerifyscreenComponent
+   },
+   {
+      path: 'writer/:id/add-story', component: AddStoryComponent,
 
    },
    {
-      path: 'story-info', component: StoryInformationComponent
+      path: 'story/:storyId/story-info', component: StoryInformationComponent
    },
    {
       path: 'view-profile/:id', component: ViewProfileComponent,
 
    },
    {
-      path: 'add-chapter', component: AddChapterComponent
+      path: 'story/:storyId/add-chapter', component: AddChapterComponent
    },
    {
       path: 'Refresh', component: RefreshComponentComponent
+   },
+   {
+      path: 'story/:storyId/chapter/:chapterId', component:ReadChapterComponent
    }
 ];

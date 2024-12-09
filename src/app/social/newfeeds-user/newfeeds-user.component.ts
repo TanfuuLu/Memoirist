@@ -49,8 +49,15 @@ export class NewfeedsUserComponent implements OnInit {
       postContext: new FormControl(null, [Validators.required])
     })
   }
+  checkUserId(writerId?: number| null): boolean{
+    if( writerId == Number(sessionStorage.getItem('userId'))){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
   submitForm() {
-    this.ngOnInit();
     this.post = this.postForm.value;
     this.authService.currentUser$.subscribe(user => {
       this.post.postWriterId = user.writerId;

@@ -26,7 +26,7 @@ export class AppComponent {
   }
   locationUrl(url: string) {
     url = url.replace('/', '');
-    if (url == 'login' || url == 'sign-in') {
+    if (url == 'login' || url == 'sign-in' || url == 'forget-password' || url =='verify-email') {
       this.urlName = true;
     } else {
       this.urlName = false;

@@ -47,4 +47,13 @@ export class ViewProfileComponent {
   calCountFollower():void{
     this.countFollower = this.userProfile.listFollower?.length
   }
+  checkFollowing(): boolean{
+    const userLoginId = Number(sessionStorage.getItem('userId'));
+    if(this.userProfile.listFollower?.includes(userLoginId)){
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PostComponent } from "./post/post.component";
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { FollowingStoryComponent } from './following-story/following-story.component';
 import { StoryComponent } from './story/story.component';
 import { UserProfile, UserService } from '../../Service/User.service';
+import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -37,13 +38,17 @@ export class ProfileComponent implements OnInit{
   };
   countFollower?: number;
   countFollowing?: number;
+  userId!: string | null;
+  private readonly platformId = inject(PLATFORM_ID);
   constructor(private route: ActivatedRoute, private userService: UserService){
   }
   ngOnInit(): void {
-    const userId = sessionStorage.getItem("userId");
+    if(isPlatformBrowser(this.platformId)){
+      this.userId = sessionStorage.getItem("userId");
+    }
     
-    if(userId){
-      this.userService.getUserProfile(Number(userId))
+    if(this.userId){
+      this.userService.getUserProfile(Number(this.userId))
       .subscribe({
         next:(profile) =>{
           this.userProfile = profile;
@@ -53,7 +58,6 @@ export class ProfileComponent implements OnInit{
         }
       })
     }
-    
   }
   calCountFollower():void{
     this.countFollower = this.userProfile.listFollower?.length

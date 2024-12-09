@@ -1,12 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Chapter, ChapterService } from '../../Service/Chapter.service';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Story, StoryService } from '../../Service/Story.service';
 
 @Component({
   selector: 'app-add-chapter',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-chapter.component.html',
   styleUrl: './add-chapter.component.scss'
 })
-export class AddChapterComponent {
+export class AddChapterComponent implements OnInit {
+  chapter!: Chapter;
+  formAddChapter!: FormGroup;
+  storyId!: number;
+  storyName?: string | null;
+  constructor(private router: ActivatedRoute, private chapterService: ChapterService, private storyService: StoryService, private route: Router){
+    this.formAddChapter = new FormGroup({
+      chapterTitle: new FormControl(null,Validators.required),
+      chapterContext: new FormControl(null,Validators.required),
+    })
+  }
+  onSubmit(){
+    this.chapter = this.formAddChapter.value;
+    this.chapterService.addChapter(this.storyId, this.chapter)
+    .subscribe({
+      next: (chapter) => {
+        this.chapter = chapter;
+        console.log(this.chapter);
+        this.route.navigate([`/story/${this.storyId}/story-info`])
+      }
+    })
+  }
+
+  ngOnInit(): void {
+    this.storyId = Number(this.router.snapshot.paramMap.get('storyId'));
+    this.storyService.getStoryById(this.storyId)
+    .subscribe({
+      next:(story) => {   
+        this.storyName = story.storyName;
+      }
+    })
+  }
 
 }

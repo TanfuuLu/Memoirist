@@ -62,8 +62,28 @@
         <a class="" routerLink="/sign-in"
          routerLinkActive="activebutton" 
         >Sign In</a>
-        <!-- <p class="font-bold">Forget Password</p> -->
+        <a class="" routerLink="/verify-email" routerLinkActive="activebutton">
+          Forgotten Password
+        </a>
       </div>
+      <button
+      (click)="loginWithFacebook()"
+      class="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+    >
+      <span class="">Đăng nhập với Facebook</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 36 36"
+        width="24"
+        height="24"
+        class="inline-block"
+      >
+        <path
+          fill="#fff"
+          d="M18 2H6C4.9 2 4 2.9 4 4v16c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 16V8h2v8H8zm6 0V8h2v8h-2z"
+        />
+      </svg>
+    </button>
     </div>
   </div>
 </div>
