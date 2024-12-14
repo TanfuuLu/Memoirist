@@ -15,13 +15,14 @@ import { Story, StoryService } from '../../Service/Story.service';
 export class ReadChapterComponent {
   getChapter?: Chapter;
   listChapterStory!: Chapter[];
+  storyId!: Number;
   formatContent(content?: string): string | undefined {
     return content?.split('\n').join('<br>') // Thay mỗi '\n' bằng '<br>'
   }
   constructor(private chapterService: ChapterService, private router: ActivatedRoute, private route: Router, private storyService: StoryService) {
-    const storyId = Number(this.router.snapshot.paramMap.get('storyId'))
+    this.storyId = Number(this.router.snapshot.paramMap.get('storyId'))
     const chapterId = Number(this.router.snapshot.paramMap.get('chapterId'));
-    this.chapterService.getChapter(chapterId, storyId)
+    this.chapterService.getChapter(chapterId, this.storyId)
       .subscribe({
         next: (chapter) => {
           this.getChapter = chapter;
@@ -29,6 +30,7 @@ export class ReadChapterComponent {
         }
       })
   }
+  
   nextChapter() {
 
     const storyId = Number(this.router.snapshot.paramMap.get('storyId'))
@@ -73,5 +75,10 @@ export class ReadChapterComponent {
           }
         }
       })
+  }
+  mainStory(){
+    this.route.navigateByUrl(`/Refresh`, { skipLocationChange: true }).then(() => {
+      this.route.navigate([`/story/${this.storyId}/story-info`]);
+    });
   }
 }

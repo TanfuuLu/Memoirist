@@ -1,9 +1,11 @@
 <div class="w-full h-screen" style="background-image: url('img/background_web.png')">
     <!-- Sticky bar topic  -->
     <div class="flex justify-center w-full text-center text-white  ">
+        <button class=" mr-[150vh] fixed border-2 rounded-full bg-neutral-800 p-1 px-5" (click)="mainStory()">Về Trang Truyện</button>
+
         <button class=" mr-[100vh] fixed border-2 rounded-full bg-neutral-800 p-1 px-5" (click)="previousChapter()">Chương Trước</button>
 
-        <h1 class="font-bold text-lg fixed -950 mt-1 bg-black px-[10vh]  ">Chương {{getChapter?.chapterNumber}} - {{getChapter?.chapterTitle}}</h1>
+        <h1 class="font-bold text-lg fixed -950 mt-1 bg-black px-[10vh]  ">Chương {{getChapter?.chapterNumber}}: {{getChapter?.chapterTitle}}</h1>
 
         <button class=" ml-[100vh] fixed border-2 rounded-full bg-neutral-800 p-1 px-5" (click)="nextChapter()" > Chương Sau</button>  
     </div>

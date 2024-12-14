@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ViewPostComponent implements OnInit {
   @Input() userProfile: any;
   listPost!: Post[];
+  userLoginId!: number;
   constructor(private router: ActivatedRoute, private postService: PostService){
 
   }
@@ -25,6 +26,19 @@ export class ViewPostComponent implements OnInit {
         }
       })
     }
+  }
+  toggleLike(post: Post){
+   
+    this.userLoginId = Number(sessionStorage.getItem('userId'));
+
+    this.postService.likePost(this.userLoginId , post.postId).subscribe({
+      next: (result) => {
+        post.listWriterLikePost = result.listWriterLikePost;
+      },
+      error: (err) => {
+        console.error('Lỗi khi like bài viết:', err);
+      },
+    });
   }
 
 }

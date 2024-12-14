@@ -40,5 +40,9 @@ export class UserService{
     followUser(userLoginId: Number, userId: Number){
       return this.http.get<UserProfile>(`${this.apiUrl}/follow-writer-${userLoginId}/${userId}`);
     }
-    
+    searchUser(userName: string): Observable<UserProfile[]>{
+      const params = new URLSearchParams();
+        params.set('writerName', userName);
+      return this.http.get<UserProfile[]>(`${this.apiUrl}/search-writer?${params.toString()}`);
+    }
 }

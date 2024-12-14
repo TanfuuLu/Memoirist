@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
+import { Story } from "./Story.service";
 
 export interface Chapter{
   chapterId: number;
@@ -33,4 +34,17 @@ export class ChapterService{
     deleteChapter(chapterId:Number){
       return this.http.delete(`${this.chapterApi}/delete-chapter/${chapterId}`);
     }
+    loadWordFile(filWord: File) :Observable<any>{
+        const formData = new FormData();
+        formData.append('file', filWord, filWord.name);
+        return this.http.post<any>(`${this.chapterApi}/read-word`, formData);
+    }
+    getLastChapter(storyId?: number | null): Observable<number>{
+      return this.http.get<number>(`${this.chapterApi}/get-last-${storyId}`);
+    } 
+   
+    getLastChapterId(storyId?: number | null): Observable<number>{
+      return this.http.get<number>(`${this.chapterApi}/get-last-chapter-${storyId}`);
+    } 
+   
 }

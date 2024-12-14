@@ -1,0 +1,26 @@
+<div id="style-3 " style="background-image: url('img/background_web.png')">
+    <div class="flex justify-center min-w-full text-center text-white relative">
+        <h1 class=" font-bold text-lg fixed top-0 text-white p-2">Search Story</h1>
+    </div>
+    <div class="bg-neutral-950 mt-[5vh] mx-[15%] ml-[20%] rounded-t-3xl  min-h-[95vh]">
+        <div class="flex">
+            <form action="" [formGroup]="frmSearch" class="flex w-full" >
+                <input type="text" placeholder="Viết tên truyện cần tìm" formControlName="storyName"
+                class=" w-[80%] m-2 bg-neutral-800 text-white h-[5vh] rounded-2xl p-2 ">
+            <button type="submit" (click)="searchStory()"
+                class=" text-white bg-neutral-800 hover:bg-neutral-900 m-2 rounded-2xl w-[15%] h-[5vh]">Search</button>
+            </form>
+        </div>
+        @for (story of listStoryResult; track story) {
+        <div class="mt-2   w-full flex justify-center">
+          
+            <div class="bg-neutral-900 w-full m-1 rounded-2xl  h-[10vh]  text-white grid grid-cols-4 content-center place-items-center">
+                <a  routerLink="/story/{{story.storyId}}/story-info" class=" hover:font-bold">{{story.storyName}}</a>
+                <p>{{story.storyAuthor}}</p>
+                <p>{{story.storyDateWrited}}</p>
+                <p></p>
+            </div>
+          
+        </div> }
+    </div>
+</div>

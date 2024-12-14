@@ -6,6 +6,7 @@ import { ViewPostComponent } from './view-post/view-post.component';
 import { ViewStoryComponent } from './view-story/view-story.component';
 import { UserProfile, UserService } from '../../Service/User.service';
 import { CommonModule } from '@angular/common';
+import { Post } from '../../Service/Post.service';
 
 @Component({
   selector: 'app-view-profile',
@@ -54,6 +55,5 @@ export class ViewProfileComponent {
     }else{
       return false;
     }
-    
   }
 }

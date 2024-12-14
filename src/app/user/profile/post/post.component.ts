@@ -55,9 +55,6 @@ export class PostComponent implements OnInit{
       })
     }
   }
-  calcuLikePost(listIdLiked?: number[] | null): number | undefined{
-    return listIdLiked?.length;
-  }
   calcuCommentedPost(listIdCommented?: number[] | null): number | undefined{
     return listIdCommented?.length;
   }
@@ -134,5 +131,22 @@ export class PostComponent implements OnInit{
         }
       })
 
+  }
+  toggleLike(post: Post){
+    const writerId = this.userProfile.writerId;
+
+    this.postService.likePost(writerId, post.postId).subscribe({
+      next: (result) => {
+        post.listWriterLikePost = result.listWriterLikePost;
+        this.postService.getListPost().subscribe({
+          next: (result) => {
+            
+          }
+        })
+      },
+      error: (err) => {
+        console.error('Lỗi khi like bài viết:', err);
+      },
+    });
   }
 }

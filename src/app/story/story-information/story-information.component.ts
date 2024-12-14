@@ -27,7 +27,6 @@ export class StoryInformationComponent {
     .subscribe({
       next:(chapter) => {
         this.listChapterStory = chapter;
-        console.log(this.listChapterStory);
       }
     })
   }

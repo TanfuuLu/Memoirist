@@ -15,6 +15,8 @@ import { RefreshComponentComponent } from './refresh-component/refresh-component
 import { ReadChapterComponent } from './story/read-chapter/read-chapter.component';
 import { ForgetPasswordComponent } from './authenticate/forget-password/forget-password.component';
 import { VerifyscreenComponent } from './authenticate/verifyscreen/verifyscreen.component';
+import { SearchBarComponent } from './social/search-bar/search-bar.component';
+import { SearchUserComponent } from './social/search-user/search-user.component';
 
 export const routes: Routes = [
    {
@@ -64,5 +66,11 @@ export const routes: Routes = [
    },
    {
       path: 'story/:storyId/chapter/:chapterId', component:ReadChapterComponent
+   },
+   {
+      path: 'search-story', component:SearchBarComponent
+   },
+   {
+      path: 'search-user', component:SearchUserComponent
    }
 ];

@@ -63,4 +63,10 @@ export class StoryService {
           });
         return this.http.post<Story>(`${this.storyApiUrl}/add-story`,story,{headers} );
     }
+    searchStory(storyName: string): Observable<Story[]>{
+            const params = new URLSearchParams();
+            params.set('storyName', storyName);
+        return this.http.get<Story[]>(`${this.storyApiUrl}/search-story-name?${params.toString()}`);
+    }
+   
 }

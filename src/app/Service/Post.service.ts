@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { writer } from "node:repl";
 import { Observable, ObservableLike } from "rxjs";
 export interface Post{
   postId: number;
@@ -43,4 +44,9 @@ export class PostService{
         files.forEach((file) => formData.append('files', file));
         return this.http.post<string[]>(`${this.postApiUrl}/upload`, formData);
       }
+    likePost(writerId: number, postId: number): Observable<any> {
+        const params = { writerId: writerId.toString(), postId: postId.toString() };
+        return this.http.put(`${this.postApiUrl}/like-post`,  null, { params });
+      }
+      
 }

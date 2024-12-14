@@ -19,7 +19,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './newfeeds-user.component.scss'
 })
 export class NewfeedsUserComponent implements OnInit {
-  user: any;
+  user!: UserProfile;
   base64Images: string[] = [];
   post: AddPost = {
     postPictureUrl: []
@@ -30,7 +30,6 @@ export class NewfeedsUserComponent implements OnInit {
   listPostNewfeeds?: Post[];
   currentDate = new Date();
   formattedDate = this.currentDate.toLocaleDateString('vi-VN');
-
   imagePreviews: string[] = [];
   openModal() {
     this.isModalOpen = true;
@@ -88,8 +87,8 @@ export class NewfeedsUserComponent implements OnInit {
       .subscribe({
         next: ((post) => {
           this.listPostNewfeeds = post;
-
-        })
+          console.log(this.listPostNewfeeds);
+                })
       })
     this.authService.currentUser$.subscribe(user => {
       this.user = user;
@@ -147,5 +146,22 @@ export class NewfeedsUserComponent implements OnInit {
     // Xóa ảnh khỏi mảng imagePreviews
     this.imagePreviews = this.imagePreviews.filter(image => image !== imgSrc);
     console.log('Updated imagePreviews after removal:', this.imagePreviews);
+  }
+  toggleLike(post: Post){
+    const writerId = this.user.writerId;
+
+    this.postService.likePost(writerId, post.postId).subscribe({
+      next: (result) => {
+        post.listWriterLikePost = result.listWriterLikePost;
+        this.postService.getListPost().subscribe({
+          next: (result) => {
+            
+          }
+        })
+      },
+      error: (err) => {
+        console.error('Lỗi khi like bài viết:', err);
+      },
+    });
   }
 }
