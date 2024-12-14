@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, ObservableLike } from "rxjs";
 import { Chapter } from "./Chapter.service";
+import { UserProfile } from "./User.service";
 
 
 
@@ -68,5 +69,13 @@ export class StoryService {
             params.set('storyName', storyName);
         return this.http.get<Story[]>(`${this.storyApiUrl}/search-story-name?${params.toString()}`);
     }
+    getListFollowingByWriter(followingStoryId: number[]): Observable<Story[]>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          });
+        return this.http.post<Story[]>(`${this.storyApiUrl}/get-list-following-of-writer`,  followingStoryId, { headers });
+    }
+   
    
 }

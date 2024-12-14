@@ -52,7 +52,7 @@
         <app-post [userProfile]="userProfile"></app-post>
       }
       @case ('following-story') {
-      <app-following-story></app-following-story>
+      <app-following-story [userProfile] = "userProfile"></app-following-story>
       }
       @case ('story') {
       <app-story [userProfile]="userProfile"></app-story>

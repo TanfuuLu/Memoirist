@@ -45,4 +45,7 @@ export class UserService{
         params.set('writerName', userName);
       return this.http.get<UserProfile[]>(`${this.apiUrl}/search-writer?${params.toString()}`);
     }
+    followStory(userId: number, storyId: number): Observable<UserProfile>{
+      return this.http.get<UserProfile>(`${this.apiUrl}/writer-${userId}/follow-story-${storyId}`)
+    }
 }

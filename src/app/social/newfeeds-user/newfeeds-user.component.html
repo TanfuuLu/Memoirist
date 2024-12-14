@@ -87,13 +87,13 @@
             <div class="flex m-2">
               @if(checkUserId(post.postWriterId)){
                 <a routerLink="/profile/{{post.postWriterId}}" routerLinkActive="active">
-                  <p class="mr-10 font-bold" class="hover:border-b-2 hover:font-bold hover:border-spacing-0">
+                  <p class="mr-10 font-bold" class=" hover:font-bold hover:border-spacing-0">
                     {{post.postWriterName}}
                   </p>
                 </a>
               }@else {
                 <a routerLink="/view-profile/{{post.postWriterId}}" routerLinkActive="active">
-                  <p class="mr-10 font-bold" class="hover:border-b-2 hover:font-bold hover:border-spacing-0">
+                  <p class="mr-10 font-bold" class=" hover:font-bold hover:border-spacing-0">
                     {{post.postWriterName}}
                   </p>
                 </a>

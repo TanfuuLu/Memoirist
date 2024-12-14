@@ -2,11 +2,11 @@
 @for(story of listStoryUser;track story){
     
         <div class="text-white  mb-2 mt-2">
-            <div class="flex justify-between min-w-full rounded-xl bg-neutral-950 hover:bg-neutral-900  py-5">
-                <div class="ml-[5%] text-xl w-[40%] break-words">
+            <div class="grid grid-cols-6 content-center place-items-center  min-w-full rounded-xl bg-neutral-950 hover:bg-neutral-900  py-5">
+                <div class="ml-[5%] text-xl w-[40%] break-words flex col-span-3">
                     <a   routerLink="/story/{{story.storyId}}/story-info" class="hover:text-stone-200 hover:font-bold">{{story.storyName}}</a>
                 </div>
-                <div class="">
+                <div class="col-span-1">
                     <p>Ngày Đăng Tải:  {{story.storyDateWrited}}</p>
                 </div>
                 <div class="text-white mr-10 ">

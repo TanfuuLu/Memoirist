@@ -1,17 +1,26 @@
-<div class="text-white overflow-scroll no-scrollbar h-[47vh]" >
-    <div class="flex justify-between min-w-full  border-b-2  py-5">
-        <div class="ml-[5%] text-xl">
-            <a href="" class="hover:text-stone-200 hover:font-bold">Già Thiên</a>
+@for (story of listStoryWriter; track story) {
+    <div class="text-white overflow-scroll no-scrollbar bg-black  " >
+        <div class="grid grid-cols-5 content-center place-items-center min-w-full m-2 bg-neutral-950 rounded-2xl  py-5">
+            <div class="ml-[5%] text-xl col-span-2">
+                <a routerLink="/story/{{story.storyId}}/story-info" class="hover:text-stone-200 hover:font-bold">{{story.storyName}}</a>
+            </div>
+            <div class="">
+                <p>{{story.storyDateWrited}}</p>
+            </div>
+            <div>
+                 @if(!checkFollowingStory(story.storyId!)){
+                    <button (click)="userFollowStory(story.storyId!)" class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Follow Story</button>
+
+                }@else {
+                    <button (click)="userFollowStory(story.storyId!)" class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Following</button>
+
+                }
+            </div>
+            <div class="text-white mr-10 ">
+                <a  routerLink="/story/{{story.storyId}}/chapter/{{getLastChapterId(story.storyId!)}}" class="hover:underline ">Chương: {{getLastChapterNumber(story.storyId!)}}</a>
+            </div>
+            
         </div>
-        <div class="">
-            <p>Ngày Đăng Tải:  13/10/2024</p>
-        </div>
-        <div>
-            <button class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Follow Story</button>
-        </div>
-        <div class="text-white mr-10 ">
-            <a href="" class="hover:underline ">Chapter 1909</a>
-        </div>
-        
     </div>
-</div>
+}
+

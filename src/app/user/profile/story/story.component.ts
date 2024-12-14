@@ -17,7 +17,7 @@ import { writer } from 'repl';
 export class StoryComponent {
   @Input() userProfile?: UserProfile;
   listStoryUser!: StoryReponse[];
-  lastChapters: { [storyId: number]: number } = {};
+  lastChaptersNumber: { [storyId: number]: number } = {};
   listChapter!: Chapter[];
   lastChapterIds: { [storyId: number]: number } = {};
   constructor(private storyService: StoryService, private authService: AuthService, private chapterService: ChapterService) {
@@ -35,7 +35,7 @@ export class StoryComponent {
     this.listStoryUser.forEach((story) => {
       this.chapterService.getLastChapter(story.storyId).subscribe({
         next: (chapter) => {
-          this.lastChapters[story.storyId!] = chapter; // Lưu chương cuối vào đối tượng
+          this.lastChaptersNumber[story.storyId!] = chapter; // Lưu chương cuối vào đối tượng
 
         },
         error: (err) => {
@@ -59,7 +59,7 @@ export class StoryComponent {
     });
   }
   getLastChapterNumber(storyId?: number | null): number {
-    return this.lastChapters[storyId!] ?? 0; // Nếu undefined, trả về 0 (hoặc giá trị mặc định khác)
+    return this.lastChaptersNumber[storyId!] ?? 0; // Nếu undefined, trả về 0 (hoặc giá trị mặc định khác)
   }
   getLastChapterId(storyId: number): number | null {
     return this.lastChapterIds[storyId] ?? null;

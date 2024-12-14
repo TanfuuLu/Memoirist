@@ -55,7 +55,7 @@
             <app-view-post [userProfile]="userProfile"></app-view-post>
         }
         @case ('view-story') {
-            <app-view-story></app-view-story>
+            <app-view-story [user] ="userProfile"></app-view-story>
         }
 
         }
