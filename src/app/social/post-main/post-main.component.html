@@ -8,10 +8,10 @@
 
   <div class=" w-full ">
     <div class="">
-      <div class="bg-neutral-950 mx-[15%] ml-[20%] h-[95vh] overflow-scroll mt-[5vh] no-scrollbar rounded-t-3xl ">
+      <div class="bg-black mx-[15%] ml-[20%] h-[95vh] overflow-scroll mt-[5vh] no-scrollbar rounded-t-3xl ">
         <!-- post -->
         <div class="flex border-b-2  ">
-          <div class="bg-neutral-950 grid grid-cols-12 min-w-[100%]">
+          <div class="bg-black grid grid-cols-12 min-w-[100%]">
             <div class="flex ml-2 col-span-1">
               <img src="img/avatar/defaultavatar.jpg" class="m-2 mt-3 rounded-full w-12 h-12" />
             </div>
@@ -78,14 +78,14 @@
         </div>
         <!-- end post -->
         <!-- Reply to post -->
-        <div class=" border-b-2 border-gray-800 text-white bg-neutral-950 grid grid-cols-12 ">
-          <div class="flex items-start mx-4 col-span-1 m-2 ">
-            <img src="img/avatar/anh4.png" class="rounded-full w-12 h-10" alt="">
+        <div class=" border-b-2 border-gray-950 text-white bg-black grid grid-cols-12 ">
+          <div class="flex items-start mx-4 col-span-2 m-2 ">
+            <img src="img/avatar/{{user?.writerAvatar}}" class="rounded-full w-16 h-16" alt="">
           </div>
-          <div class=" col-span-11">
+          <div class=" col-span-10">
             <form [formGroup]="frmAddComment" class="flex justify-around w-full">
               <textarea name="" id="" rows="1" formControlName="commentContext"
-                class="resize-none pt-3 min-w-[80%] flex bg-transparent focus:outline-none no-scrollbar"
+                class="resize-none pt-3 min-w-[85%] flex bg-transparent focus:outline-none no-scrollbar"
                 placeholder="Reply to post"></textarea>
               <button (click)="addCommentButton()" type="submit" 
                 class="mt-2 px-6 mr-3 py-2 text-white rounded-full bg-neutral-700">Send</button>
@@ -95,7 +95,7 @@
         <!-- Comment Scroll -->
         <!-- Comment Section -->
         @for (item of listComment; track item) {
-        <div class="bg-neutral-950 mt-2 border grid grid-cols-12 rounded-2xl border-none">
+        <div class="bg-neutral-900 mt-2 border grid grid-cols-12 rounded-2xl border-none m-2 p-2">
           <!-- Avatar -->
           <div class="flex ml-4 col-span-1">
             <img src="img/avatar/{{user?.writerAvatar}}" class=" rounded-full w-12 h-12" alt="">
@@ -111,30 +111,8 @@
               <p>{{item?.commentContext}}</p>
               <!-- ACTION -->
               <div class="flex justify-start mt-2">
-                <!-- Likes -->
-                <label class="flex">
-                  <input type="checkbox" id="heart-checkbox" />
-                  <div class="heart-checkbox">
-                    <!-- Heart SVG -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white"
-                      stroke-width="2" class="w-5 h-5">
-                      <path
-                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                    </svg>
-                  </div>
-                  <p></p>
-                </label>
-                <!-- Comment -->
-                <button type="button" class="w-5 h-5 mx-20 flex">
-                  <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-6">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                    </svg>
-                  </div>
-
-                </button>
+            
+               
 
               </div>
             </div>

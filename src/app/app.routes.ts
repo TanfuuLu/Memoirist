@@ -16,6 +16,7 @@ import { ForgetPasswordComponent } from './authenticate/forget-password/forget-p
 import { VerifyscreenComponent } from './authenticate/verifyscreen/verifyscreen.component';
 import { SearchBarComponent } from './social/search-bar/search-bar.component';
 import { SearchUserComponent } from './social/search-user/search-user.component';
+import { StoryInformationUserComponent } from './story/story-information-user/story-information-user.component';
 
 export const routes: Routes = [
    {
@@ -49,6 +50,8 @@ export const routes: Routes = [
    },
    {
       path: 'story/:storyId/story-info', component: StoryInformationComponent
+   },{
+      path: 'story-view/:storyId/story-info', component: StoryInformationUserComponent
    },
    {
       path: 'view-profile/:id', component: ViewProfileComponent,

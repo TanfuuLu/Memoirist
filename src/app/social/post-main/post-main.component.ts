@@ -25,17 +25,22 @@ export class PostMainComponent implements OnInit {
   addComment?: AddCommentPost;
   constructor(private postService: PostService, private router: ActivatedRoute, private userService: UserService, private authService: AuthService, private commentService: CommentPostService) {
     this.frmAddComment = new FormGroup({
-      commentContext: new FormControl(null, [Validators.required]),
-
+      commentContext: new FormControl(null, [Validators.required])
     })
+    // Chỉ gọi loadCurrentUser nếu dữ liệu chưa có
+    if (!sessionStorage.getItem('userId') || !sessionStorage.getItem('authToken')){
+      this.authService.loadCurrentUser();
+    }
+
   }
   ngOnInit(): void {
-    this.authService.loadCurrentUser();
+    this.authService.checkLogin();
 
     // Lấy id bài viết và id người dùng từ route
     this.mainPostId = Number(this.router.snapshot.paramMap.get('idPost'));
     const userPostId = Number(this.router.snapshot.paramMap.get('idWriter'));
     const userLoginId = Number(sessionStorage.getItem('userId'));
+    console.log(userLoginId);
     // Nếu id bài viết có giá trị
     if (this.mainPostId) {
       this.commentService.getListCommentOfPost(this.mainPostId).subscribe({
@@ -57,7 +62,6 @@ export class PostMainComponent implements OnInit {
         }
       });
     }
-
     // Nếu id người dùng có giá trị
     this.userService.getUserProfile(userPostId).subscribe({
       next: (result) => {
@@ -103,6 +107,7 @@ export class PostMainComponent implements OnInit {
   }
   addCommentButton() {
     this.authService.currentUser$.subscribe(user => {
+      this.user = user;
       this.addComment = {
         commentContext: this.frmAddComment.get('commentContext')?.value,
         commentWriterId: user.writerId,
@@ -110,24 +115,24 @@ export class PostMainComponent implements OnInit {
         commentWriterName: user.writerFullname ?? null,
         postId: this.mainPost.postId
       };
-      
+
     })
     console.log(this.addComment);
     this.commentService.addComment(this.addComment)
-    .subscribe({
-      next: (result) => {
-        this.commentService.getListCommentOfPost(this.mainPostId).subscribe({
-          next: (result) => {
-            this.listComment = result || [];  // Gán mảng rỗng nếu result là undefined
-            console.log(this.listComment);
-          },
-          error: (err) => {
-            console.log(err);
-          }
-        });
-        console.log(result);
-      }
-    })
+      .subscribe({
+        next: (result) => {
+          this.commentService.getListCommentOfPost(this.mainPostId).subscribe({
+            next: (result) => {
+              this.listComment = result || [];  // Gán mảng rỗng nếu result là undefined
+              console.log(this.listComment);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          });
+          console.log(result);
+        }
+      })
   }
 }
 

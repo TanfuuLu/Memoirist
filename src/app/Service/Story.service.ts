@@ -69,7 +69,7 @@ export class StoryService {
             params.set('storyName', storyName);
         return this.http.get<Story[]>(`${this.storyApiUrl}/search-story-name?${params.toString()}`);
     }
-    getListFollowingByWriter(followingStoryId: number[]): Observable<Story[]>{
+    getListFollowingByWriter(followingStoryId?: number[]): Observable<Story[]>{
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Accept': 'application/json',

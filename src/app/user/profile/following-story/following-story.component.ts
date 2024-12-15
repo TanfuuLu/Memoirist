@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserProfile } from '../../../Service/User.service';
-import { Story, StoryService } from '../../../Service/Story.service';
+import { Story, StoryReponse, StoryService } from '../../../Service/Story.service';
 import { Chapter, ChapterService } from '../../../Service/Chapter.service';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../Service/Auth.service';
 
 @Component({
   selector: 'app-following-story',
@@ -13,32 +14,36 @@ import { RouterLink } from '@angular/router';
 })
 export class FollowingStoryComponent implements OnInit {
   @Input() userProfile?: UserProfile;
-  listStoryFollowing!: Story[];
-    lastChaptersNumber: { [storyId: number]: number } = {};
-    listChapter!: Chapter[];
-    lastChapterIds: { [storyId: number]: number } = {};
-  constructor(private storyService: StoryService, private chapterService: ChapterService){
-   
-  }
-  ngOnInit(): void {
-    console.log(this.userProfile);
-   
-      // this.listStoryFollowingByWriter(this.userProfile?.listFollowingStoryId!);
-      console.log(this.userProfile?.listFollowingStoryId!);
-      this.listStoryFollowingByWriter(this.userProfile?.listFollowingStoryId!);
-      this.loadLastChapters();
-      this.loadLastChapterIds();
+  listStoryFollowing!: StoryReponse[];
+  lastChaptersNumber: { [storyId: number]: number } = {};
+  listChapter!: Chapter[];
+  lastChapterIds: { [storyId: number]: number } = {};
+  constructor(private storyService: StoryService, private chapterService: ChapterService, private authService: AuthService) {
 
   }
-  listStoryFollowingByWriter(listFollowStoryId: number[]){
+  ngOnInit(): void {
+    this.authService.checkLogin();
+
+    console.log(this.userProfile);
+    // this.listStoryFollowingByWriter(this.userProfile?.listFollowingStoryId!);
+    this.listStoryFollowingByWriter(this.userProfile?.listFollowingStoryId);
+    
+    
+
+  }
+  listStoryFollowingByWriter(listFollowStoryId?: number[]) {
     this.storyService.getListFollowingByWriter(listFollowStoryId)
-    .subscribe({
-      next: (result) => {
-        this.listStoryFollowing = result;
-      }
-    })
+      .subscribe({
+        next: (result) => {
+          this.listStoryFollowing = result;
+          console.log(this.listStoryFollowing);
+          this.loadLastChapters();
+          this.loadLastChapterIds();
+        }
+      })
   }
   loadLastChapters(): void {
+    console.log(this.listStoryFollowing);
     this.listStoryFollowing.forEach((story) => {
       this.chapterService.getLastChapter(story.storyId).subscribe({
         next: (chapter) => {

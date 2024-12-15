@@ -45,6 +45,8 @@ export class PostComponent implements OnInit{
     })
   }
   ngOnInit(): void {
+    this.authService.checkLogin();
+
     const userId = this.router.snapshot.paramMap.get('id');
     if(userId){
       this.postService.getListByWriterId(Number(userId))

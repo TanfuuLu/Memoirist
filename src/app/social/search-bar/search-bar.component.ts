@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Story, StoryService } from '../../Service/Story.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../Service/Auth.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -14,12 +15,14 @@ import { RouterLink } from '@angular/router';
 export class SearchBarComponent {
   frmSearch!: FormGroup;
   listStoryResult!: Story[]
-  constructor(private storyService: StoryService){
+  constructor(private storyService: StoryService, private authService: AuthService){
     this.frmSearch = new FormGroup(
       {
         storyName: new FormControl(null, [Validators.required])
       }
     )
+    this.authService.checkLogin();
+
   }
   searchStory(){
     const value = this.frmSearch.get('storyName')?.value;

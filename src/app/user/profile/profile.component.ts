@@ -6,6 +6,7 @@ import { FollowingStoryComponent } from './following-story/following-story.compo
 import { StoryComponent } from './story/story.component';
 import { UserProfile, UserService } from '../../Service/User.service';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../Service/Auth.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -40,9 +41,10 @@ export class ProfileComponent implements OnInit{
   countFollowing?: number;
   userId!: string | null;
   private readonly platformId = inject(PLATFORM_ID);
-  constructor(private route: ActivatedRoute, private userService: UserService){
+  constructor(private route: ActivatedRoute, private userService: UserService,private authService: AuthService){
   }
   ngOnInit(): void {
+    this.authService.checkLogin();
     if(isPlatformBrowser(this.platformId)){
       this.userId = sessionStorage.getItem("userId");
     }

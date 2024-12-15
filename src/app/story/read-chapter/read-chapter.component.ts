@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/r
 import { Chapter, ChapterService } from '../../Service/Chapter.service';
 import e from 'express';
 import { Story, StoryService } from '../../Service/Story.service';
+import { AuthService } from '../../Service/Auth.service';
 
 @Component({
   selector: 'app-read-chapter',
@@ -19,7 +20,9 @@ export class ReadChapterComponent {
   formatContent(content?: string): string | undefined {
     return content?.split('\n').join('<br>') // Thay mỗi '\n' bằng '<br>'
   }
-  constructor(private chapterService: ChapterService, private router: ActivatedRoute, private route: Router, private storyService: StoryService) {
+  constructor(private authService: AuthService,private chapterService: ChapterService, private router: ActivatedRoute, private route: Router, private storyService: StoryService) {
+    this.authService.checkLogin();
+
     this.storyId = Number(this.router.snapshot.paramMap.get('storyId'))
     const chapterId = Number(this.router.snapshot.paramMap.get('chapterId'));
     this.chapterService.getChapter(chapterId, this.storyId)

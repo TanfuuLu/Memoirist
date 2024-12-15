@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Chapter, ChapterService } from '../../Service/Chapter.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Story, StoryService } from '../../Service/Story.service';
+import { AuthService } from '../../Service/Auth.service';
 
 @Component({
   selector: 'app-add-chapter',
@@ -18,7 +19,7 @@ export class AddChapterComponent implements OnInit {
   storyName?: string | null;
   selectedFile: File | null = null; 
   htmlContent: string = '';
-  constructor(private router: ActivatedRoute, private chapterService: ChapterService, private storyService: StoryService, private route: Router){
+  constructor(private authService: AuthService,private router: ActivatedRoute, private chapterService: ChapterService, private storyService: StoryService, private route: Router){
     this.formAddChapter = new FormGroup({
       chapterTitle: new FormControl(null,Validators.required),
       chapterContext: new FormControl(null,Validators.required),
@@ -41,6 +42,8 @@ export class AddChapterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.checkLogin();
+
     this.storyId = Number(this.router.snapshot.paramMap.get('storyId'));
     this.storyService.getStoryById(this.storyId)
     .subscribe({

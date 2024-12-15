@@ -4,9 +4,14 @@
     <h1 class=" font-bold text-lg text-white p-1">TRUYỆN</h1>
 </div>
 <div class="w-screen h-screen flex">
-    <div class=" w-[75%] bg-neutral-900 flex border-r-2">
+    <div class=" w-[100%] bg-black flex border-r-2" >
         <div class="bg-none ml-[8%] mt-[5vh] h-[95vh] w-full   overflow-scroll no-scrollbar rounded-t-3xl ">
-            <div class=" h-[50%] border-b-2 mt-1 p-2 text-white">
+          <div class="flex w-screen">
+            <div class="bg-neutral-500 m-4 h-[35vh] w-[15%]">
+                <img src="img/" alt="">
+            </div>
+            <div class=" h-[50%] w-[70%] border-b-2 mt-1 p-2 text-white">
+                
                 <div class="pl-5 ">
                     <p class="text-4xl font-semibold p-10 pl-0 pb-5 ">{{storyInfo?.storyName}}</p>
                     <p class="font-light text-xs">{{storyInfo?.storyDateWrited}}</p>
@@ -21,6 +26,7 @@
                 <a class="text-white border mr-5 p-1 rounded-2xl" href="" routerLink="/story/{{storyInfo?.storyId}}/add-chapter"> Update Chapter</a>
                </div>
             </div>
+          </div>
             <div class="px-5 h-[50%] ">
                 <!-- For loop chapter list -->
                 <div class="overflow-scroll no-scrollbar  h-[100%] overflow-x-clip w-full ">
@@ -45,44 +51,6 @@
         </div>
    
     </div>
-    <div class="bg-none w-[25%] ml-2  mt-[5vh] h-[95vh]  ">
-        <div>
-            <div class="text-white border-b flex justify-center ">
-                <p>Bình Luận</p>
-            </div>
-            <div class=" w-full h-[90vh]">
-                <!-- Input comment -->
-                <form action="">
-                    <div class="  flex justify-between border-b p-2 pb-5">
-                        <div class="h-10 w-14 ">
-                            <img src="img/avatar/anh4.png" class="h-[100%] w-[100%] rounded-full">
-                        </div>
-                        <textarea class="ml-2 pt-2 mr-2 text-white placeholder:text-white bg-transparent focus:text-white w-full
-                        focus:outline-none resize-none" rows="1" name="" id="" placeholder="Write your comment"></textarea>
-                        <button type="submit" class="text-white bg-slate-800 px-5 rounded-full">Send</button>
-                    </div>
-                </form>
-                <!-- Comment -->
-                <div class=" w-full h-[81vh]  overflow-scroll overflow-x-hidden ">
-                  <div class="bg-opacity-0 flex w-full border-b p-2">
-                        <!-- Avatar -->
-                        <div class="  mr-2">
-                            <img src="img/avatar/anh1.png" class="h-12 rounded-full">
-                        </div>
-                        <!-- Context Comment -->
-                         <div class=" text-white w-[50vh]">
-                            <div class="flex">
-                                <p>&#64;thrnhann</p>
-                                <p class="ml-2 text-xs place-self-end text-gray-400 mb-1">24/10/2024</p>
-                            </div>
-                            <p>Truyện không sáng tạo ra một thế giới khác, nhưng lại khéo léo gợi mở ra
-                                những chi tiết thần bí, không chớp nhoáng đưa ngay người đọc vào một không gian xa lạ, mà như số
-                                mệnh đã sắp đặt cho nhân vật vậy</p>
-                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     
 </div>

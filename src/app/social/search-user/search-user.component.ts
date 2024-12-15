@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserProfile, UserService } from '../../Service/User.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../Service/Auth.service';
 
 @Component({
   selector: 'app-search-user',
@@ -14,7 +15,7 @@ export class SearchUserComponent implements OnInit {
   frmSearch!: FormGroup;
   listUserResult!: UserProfile[];
   userProfile!: UserProfile;
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private authService: AuthService) {
     this.frmSearch = new FormGroup(
       {
         userName: new FormControl(null, [Validators.required])
@@ -22,6 +23,8 @@ export class SearchUserComponent implements OnInit {
     )
   }
   ngOnInit(): void {
+    this.authService.checkLogin();
+
     const userId = sessionStorage.getItem('userId');
     if (userId) {
       this.userService.getUserProfile(Number(userId))

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post, PostService } from '../../../Service/Post.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../Service/Auth.service';
 
 @Component({
   selector: 'app-view-post',
@@ -13,10 +14,12 @@ export class ViewPostComponent implements OnInit {
   @Input() userProfile: any;
   listPost!: Post[];
   userLoginId!: number;
-  constructor(private router: ActivatedRoute, private postService: PostService){
+  constructor(private authService: AuthService,private router: ActivatedRoute, private postService: PostService){
 
   }
   ngOnInit(): void {
+    this.authService.checkLogin();
+
     const userId = this.router.snapshot.paramMap.get('id');
     if(userId){
       this.postService.getListByWriterId(Number(userId))

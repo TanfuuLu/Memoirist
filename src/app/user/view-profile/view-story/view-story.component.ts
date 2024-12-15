@@ -23,6 +23,7 @@ export class ViewStoryComponent implements OnInit{
     
   }
   ngOnInit(): void { 
+    this.authService.checkLogin();
     this.authService.loadCurrentUser();
     this.authService.currentUser$.subscribe({
       next: (result) => {

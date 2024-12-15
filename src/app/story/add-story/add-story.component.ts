@@ -80,11 +80,11 @@ export class AddStoryComponent implements OnInit{
    
   }
   ngOnInit(): void {
+    this.authService.checkLogin();
+
     this.authService.loadCurrentUser();
   }
-  onFileSelected(event: Event): void {
-    console.log('Event triggered:', event); // Kiểm tra xem sự kiện có được gọi hay không
-  
+  onFileSelected(event: Event): void {  
     const input = event.target as HTMLInputElement;
   
     if (input && input.files && input.files.length > 0) {

@@ -82,6 +82,7 @@ export class NewfeedsUserComponent implements OnInit {
     return content?.split('\n').join('<br>') // Thay mỗi '\n' bằng '<br>'
   }
   ngOnInit(): void {
+    this.authService.checkLogin();
     this.authService.loadCurrentUser();
     this.postService.getListPost()
       .subscribe({

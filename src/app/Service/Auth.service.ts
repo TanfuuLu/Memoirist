@@ -1,9 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams  } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { response } from "express";
-import { resolve } from "path";
-import { writer } from "repl";
-import { BehaviorSubject, catchError, map, Observable, ObservableLike, of, tap, throwError } from "rxjs";
+import { Router } from "@angular/router";
+import { BehaviorSubject, catchError, map, Observable,  of, tap, throwError } from "rxjs";
 export interface Writer {
     writerFullname?: string;
     writerUsername?: string;
@@ -36,9 +34,15 @@ export class AuthService {
     private currentUserObject = new BehaviorSubject<any>(null);
     currentUser$ = this.currentUserObject.asObservable();
     checkEmail!: string;
-    constructor(private http: HttpClient ){
+    constructor(private http: HttpClient, private router: Router ){
         
     }
+    checkLogin() {
+        const token = sessionStorage.getItem('authToken');
+        if (!token) {
+          this.router.navigate(['/login']);
+        }
+      }
     //login function 
     login(account: string, password: string): Observable<any>{
         const headers = new HttpHeaders({
