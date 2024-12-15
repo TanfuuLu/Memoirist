@@ -32,6 +32,9 @@ export class PostService{
     getListPost(): Observable<Post[]>{
         return this.http.get<Post[]>(`${this.postApiUrl}/get-all-post`);
     }
+    getPost(postId: number): Observable<Post>{
+      return this.http.get<Post>(`${this.postApiUrl}/get-post-${postId}`)
+    }
     addPost(post: AddPost){
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',

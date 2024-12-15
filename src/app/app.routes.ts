@@ -10,7 +10,6 @@ import { LoginComponent } from './authenticate/login/login.component';
 import { ViewProfileComponent } from './user/view-profile/view-profile.component';
 import { AddChapterComponent } from './story/add-chapter/add-chapter.component';
 import { Component } from '@angular/core';
-import { UserReplyComponent } from './social/user-reply/user-reply.component';
 import { RefreshComponentComponent } from './refresh-component/refresh-component.component';
 import { ReadChapterComponent } from './story/read-chapter/read-chapter.component';
 import { ForgetPasswordComponent } from './authenticate/forget-password/forget-password.component';
@@ -38,12 +37,9 @@ export const routes: Routes = [
       path: 'profile/:id', component: ProfileComponent,
    },
    {
-      path: 'post', component: PostMainComponent,
+      path: 'writer/:idWriter/post/:idPost', component: PostMainComponent,
    },
-   {
-      path: 'post/user-reply',
-      component: UserReplyComponent
-   },
+  
    {
       path: 'verify-email', component: VerifyscreenComponent
    },

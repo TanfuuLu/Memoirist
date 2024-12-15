@@ -48,10 +48,10 @@ export class NewfeedsUserComponent implements OnInit {
       postContext: new FormControl(null, [Validators.required])
     })
   }
-  checkUserId(writerId?: number| null): boolean{
-    if( writerId == Number(sessionStorage.getItem('userId'))){
+  checkUserId(writerId?: number | null): boolean {
+    if (writerId == Number(sessionStorage.getItem('userId'))) {
       return true;
-    }else{
+    } else {
       return false;
     }
 
@@ -87,50 +87,44 @@ export class NewfeedsUserComponent implements OnInit {
       .subscribe({
         next: ((post) => {
           this.listPostNewfeeds = post;
-          console.log(this.listPostNewfeeds);
-                })
+        })
       })
     this.authService.currentUser$.subscribe(user => {
       this.user = user;
-      console.log(this.user);
     })
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-  
+
     if (input.files && input.files.length > 0) {
       const files: File[] = Array.from(input.files);
-  
+
       const previews: string[] = []; // Khởi tạo mảng để lưu preview
-  
+
       files.forEach((file) => {
         const reader = new FileReader();
-  
+
         reader.onload = () => {
           if (reader.result) {
-            console.log('Base64 Data:', reader.result); // Log kiểm tra Base64
             previews.push(reader.result.toString()); // Thêm preview vào mảng tạm
             this.imagePreviews = [...this.imagePreviews, ...previews]; // Cập nhật vào mảng chính
-            console.log('Updated imagePreviews:', this.imagePreviews); // Log kiểm tra mảng
           }
         };
-  
+
         reader.onerror = (err) => {
           console.error('Error reading file:', err);
         };
-  
+
         reader.readAsDataURL(file); // Chuyển file sang Base64
       });
-  
+
       // Gửi ảnh lên server
       this.postService.uploadImages(files).subscribe({
         next: (fileNames) => {
           console.log('File names from API:', fileNames); // Log dữ liệu
           // Cập nhật postImage với đường dẫn từ server
           const paths = fileNames.map((name) => `${name}`);
-          this.postImage = [...(this.postImage || []), ...paths];
-          console.log('Updated postImage:', this.postImage);
-        },
+          this.postImage = [...(this.postImage || []), ...paths];        },
         error: (err) => {
           console.error('Upload failed', err);
         },
@@ -147,21 +141,23 @@ export class NewfeedsUserComponent implements OnInit {
     this.imagePreviews = this.imagePreviews.filter(image => image !== imgSrc);
     console.log('Updated imagePreviews after removal:', this.imagePreviews);
   }
-  toggleLike(post: Post){
+  toggleLike(post: Post) {
     const writerId = this.user.writerId;
-
     this.postService.likePost(writerId, post.postId).subscribe({
       next: (result) => {
         post.listWriterLikePost = result.listWriterLikePost;
-        this.postService.getListPost().subscribe({
-          next: (result) => {
-            
-          }
-        })
       },
       error: (err) => {
         console.error('Lỗi khi like bài viết:', err);
       },
     });
+  }
+  checkedLikePost(user: UserProfile, post: Post): boolean {
+    if (user?.writerId!) {
+      return post.listWriterLikePost?.includes(user.writerId) ? true : false;
+    } else {
+      return false;
+    }
+
   }
 }

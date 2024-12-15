@@ -103,7 +103,7 @@
             </div>
             <div class="m-2 mb-2 w-full">
               <!-- Context Post and route to post -->
-              <a routerLink="/post" routerLinkActive="active">
+              <a routerLink="/writer/{{post.postWriterId}}/post/{{post?.postId}}" routerLinkActive="active">
                 <!-- <pre class="mb-2">
                   {{post.postContext}}
                 </pre> -->
@@ -119,8 +119,11 @@
               <div class="flex justify-start">
                 <!-- Likes -->
                 <label class="flex">
-                  <input type="checkbox" id="heart-checkbox"     [checked]="post.listWriterLikePost?.includes(user.writerId)" 
-                  (change)="toggleLike(post)"/>
+            
+                    <input type="checkbox" id="heart-checkbox" [checked]="checkedLikePost(user, post)" 
+                    (change)="toggleLike(post)"/>
+                  
+                 
                   <div class="heart-checkbox">
                     <!-- Heart SVG -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white"
@@ -133,7 +136,7 @@
                 </label>
                 <!-- Comment -->
                 <button type="button" class="w-5 h-5 mx-20 flex">
-                  <a routerLink="/post" routerLinkActive="active" class="flex">
+                  <a routerLink="/post/{{post?.postId}}" routerLinkActive="active" class="flex">
                     <div>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">

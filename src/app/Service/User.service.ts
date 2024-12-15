@@ -3,17 +3,17 @@ import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { Writer } from "./Auth.service";
 export interface UserProfile{
-writerId: number;
-  writerFullname?: string;
-  writerUsername?: string;
-  writerAvatar?: string;
+writerId: number ;
+  writerFullname?: string | null;
+  writerUsername?: string | null;
+  writerAvatar?: string | null;
   account?: string; // email
   password?: string;
-  writerBio?: string;
-  writerGender?: string;
-  writerBirthday?: string;
-  writerPhone?: string;
-  writerEmail?: string;
+  writerBio?: string | null;
+  writerGender?: string | null;
+  writerBirthday?: string | null;
+  writerPhone?: string | null;
+  writerEmail?: string | null;
 
   // Post
   listPostId?: number[];
