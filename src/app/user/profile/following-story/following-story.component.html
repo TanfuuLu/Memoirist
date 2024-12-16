@@ -10,8 +10,8 @@
                         <p>Ngày Đăng Tải:  {{story.storyDateWrited}}</p>
                     </div>
                     <div class="flex">
-                        <p>Tác Giả: </p>
-                        <a href="" class="hover:underline"> {{story.storyAuthor}}</a>
+                        <p>Tác Giả: {{story.storyAuthor}}</p>
+                    
                     </div>
                     <div class="text-white mr-10 ">
                         <a  routerLink="/story/{{story.storyId}}/chapter/{{getLastChapterId(story.storyId!)}}" class="hover:underline ">Chương: {{getLastChapterNumber(story.storyId!)}}</a>            </div>

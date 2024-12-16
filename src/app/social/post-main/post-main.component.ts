@@ -7,11 +7,12 @@ import { AuthService } from '../../Service/Auth.service';
 import { AddCommentPost, Comment, CommentPostService } from '../../Service/CommentPost.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { writer } from 'repl';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-post-main',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule, CommonModule],
   templateUrl: './post-main.component.html',
   styleUrl: './post-main.component.scss'
 })
@@ -23,6 +24,7 @@ export class PostMainComponent implements OnInit {
   listComment!: Comment[];
   frmAddComment!: FormGroup;
   addComment?: AddCommentPost;
+  isDropdownOpen: { [key: number]: boolean } = {}; 
   constructor(private postService: PostService, private router: ActivatedRoute, private userService: UserService, private authService: AuthService, private commentService: CommentPostService) {
     this.frmAddComment = new FormGroup({
       commentContext: new FormControl(null, [Validators.required])
@@ -112,7 +114,7 @@ export class PostMainComponent implements OnInit {
         commentContext: this.frmAddComment.get('commentContext')?.value,
         commentWriterId: user.writerId,
         commentWriterAvatar: user.writerAvatar ?? null,
-        commentWriterName: user.writerFullname ?? null,
+        commentWriterName: user.writerUsername ?? null,
         postId: this.mainPost.postId
       };
 
@@ -133,6 +135,34 @@ export class PostMainComponent implements OnInit {
           console.log(result);
         }
       })
+  }
+  toggleDropdown(commentId: number): void {
+    this.isDropdownOpen[commentId] = !this.isDropdownOpen[commentId];
+  }
+
+  onEditComment(commentId: number): void {
+    console.log(`Sửa bình luận với ID: ${commentId}`);
+    // Thêm logic sửa bình luận
+  }
+
+  onDeleteComment(commentId: number): void {
+    if (confirm('Bạn có chắc chắn muốn xóa bình luận này không?')) {
+      this.commentService.deleteComment(commentId)
+      .subscribe({
+        next: (result) => {
+          console.log(result);
+          this.commentService.getListCommentOfPost(this.mainPostId).subscribe({
+            next: (result) => {
+              this.listComment = result || [];  // Gán mảng rỗng nếu result là undefined
+              console.log(this.listComment);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          });
+        }
+      })
+    }
   }
 }
 

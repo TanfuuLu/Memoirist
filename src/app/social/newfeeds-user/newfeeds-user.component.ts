@@ -31,6 +31,8 @@ export class NewfeedsUserComponent implements OnInit {
   currentDate = new Date();
   formattedDate = this.currentDate.toLocaleDateString('vi-VN');
   imagePreviews: string[] = [];
+  selectedPostId: number | null = null;
+  dropdownStates: Map<number, boolean> = new Map();
   openModal() {
     this.isModalOpen = true;
   }
@@ -47,6 +49,9 @@ export class NewfeedsUserComponent implements OnInit {
     this.postForm = new FormGroup({
       postContext: new FormControl(null, [Validators.required])
     })
+    if (!sessionStorage.getItem('userId') || !sessionStorage.getItem('authToken')){
+      this.authService.loadCurrentUser();
+    }
   }
   checkUserId(writerId?: number | null): boolean {
     if (writerId == Number(sessionStorage.getItem('userId'))) {
@@ -61,7 +66,7 @@ export class NewfeedsUserComponent implements OnInit {
     this.authService.currentUser$.subscribe(user => {
       this.post.postWriterId = user.writerId;
       this.post.postWriterAvatar = user.writerAvatar;
-      this.post.postWriterName = user.writerFullname;
+      this.post.postWriterName = user.writerUsername;
       this.post.postPictureUrl = this.postImage;
     })
     this.postService.addPost(this.post)
@@ -160,5 +165,39 @@ export class NewfeedsUserComponent implements OnInit {
       return false;
     }
 
+  }
+
+
+  toggleDropdown(postId: number): void {
+    const currentState = this.dropdownStates.get(postId) || false;
+    this.dropdownStates.set(postId, !currentState);
+  }
+
+
+  // Kiểm tra dropdown có mở không
+  isDropdownOpen(postId: number): boolean {
+    return this.dropdownStates.get(postId) || false;
+  }
+
+  // Hàm Edit
+  onEdit(postId: number): void {
+    console.log(`Edit post with ID: ${postId}`);
+    // Thêm logic chỉnh sửa ở đây
+  }
+
+  // Hàm Delete
+  onDelete(postId: number): void {
+   this.postService.deletePost(postId)
+   .subscribe({
+    next: (result) => {
+      console.log(result);
+      this.postService.getListPost()
+      .subscribe({
+        next: ((post) => {
+          this.listPostNewfeeds = post;
+        })
+      })
+    }
+   })
   }
 }

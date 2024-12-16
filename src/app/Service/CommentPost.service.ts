@@ -36,5 +36,8 @@ export class CommentPostService{
     getListCommentOfPost(postId: number): Observable<Comment[]>{
         return this.http.get<Comment[]>(`${this.commentApiUrl}/post-${postId}/get-list-comment`);
     }
+    deleteComment(commentId: number): Observable<Comment>{
+      return this.http.delete<Comment>(`${this.commentApiUrl}/delete-comment-${commentId}`);
+    }
 
 }

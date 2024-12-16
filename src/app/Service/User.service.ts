@@ -1,9 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { Writer } from "./Auth.service";
-export interface UserProfile{
-writerId: number ;
+export interface UserProfile {
+  writerId: number;
   writerFullname?: string | null;
   writerUsername?: string | null;
   writerAvatar?: string | null;
@@ -29,23 +29,41 @@ writerId: number ;
   listFollower?: number[];
   listFollowing?: number[];
 }
-@Injectable({providedIn:'root'})
-export class UserService{
-    private readonly apiUrl = 'https://localhost:7055/api/Writer';
-    constructor(private http: HttpClient){}
-    getUserProfile(userId: Number): Observable<UserProfile>{
-        return this.http.get<UserProfile>(`${this.apiUrl}/profile/${userId}`)
-        
-    }
-    followUser(userLoginId: Number, userId: Number){
-      return this.http.get<UserProfile>(`${this.apiUrl}/follow-writer-${userLoginId}/${userId}`);
-    }
-    searchUser(userName: string): Observable<UserProfile[]>{
-      const params = new URLSearchParams();
-        params.set('writerName', userName);
-      return this.http.get<UserProfile[]>(`${this.apiUrl}/search-writer?${params.toString()}`);
-    }
-    followStory(userId: number, storyId: number): Observable<UserProfile>{
-      return this.http.get<UserProfile>(`${this.apiUrl}/writer-${userId}/follow-story-${storyId}`)
-    }
+export interface UpdateUserProfile {
+  writerFullname?: string | null;
+  writerUsername?: string | null;
+  writerBio?: string | null;
+  writerAvatar?: string | null;
+}
+@Injectable({ providedIn: 'root' })
+export class UserService {
+  private readonly apiUrl = 'https://localhost:7055/api/Writer';
+  constructor(private http: HttpClient) { }
+  getUserProfile(userId: Number): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.apiUrl}/profile/${userId}`)
+
+  }
+  followUser(userLoginId: Number, userId: Number) {
+    return this.http.get<UserProfile>(`${this.apiUrl}/follow-writer-${userLoginId}/${userId}`);
+  }
+  searchUser(userName: string): Observable<UserProfile[]> {
+    const params = new URLSearchParams();
+    params.set('writerName', userName);
+    return this.http.get<UserProfile[]>(`${this.apiUrl}/search-writer?${params.toString()}`);
+  }
+  followStory(userId: number, storyId: number): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.apiUrl}/writer-${userId}/follow-story-${storyId}`)
+  }
+  uploadImages(file: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', file);  // Chỉ append một file thay vì một mảng
+    return this.http.post<string>(`${this.apiUrl}/upload`, formData);
+  }
+  updateProfile(userId: number, updateUser: UpdateUserProfile  ): Observable<UserProfile>{
+     const headers = new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            });
+    return this.http.put<UserProfile>(`${this.apiUrl}/writer-update-${userId}`, updateUser, {headers});
+  }
 }

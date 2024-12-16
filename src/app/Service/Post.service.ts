@@ -51,5 +51,8 @@ export class PostService{
         const params = { writerId: writerId.toString(), postId: postId.toString() };
         return this.http.put(`${this.postApiUrl}/like-post`,  null, { params });
       }
+      deletePost(postId: number): Observable<Post>{
+        return this.http.delete<Post>(`${this.postApiUrl}/delete-post-${postId}`);
+      }
       
 }

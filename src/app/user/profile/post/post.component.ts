@@ -118,7 +118,7 @@ export class PostComponent implements OnInit{
     this.authService.currentUser$.subscribe(user => {
       this.post.postWriterId = this.userProfile.writerId;
       this.post.postWriterAvatar = this.userProfile.writerAvatar;
-      this.post.postWriterName = this.userProfile.writerFullname;
+      this.post.postWriterName = this.userProfile.writerUsername;
       this.post.postPictureUrl = this.postImage;
     })
     this.postService.addPost(this.post)

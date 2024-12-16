@@ -64,4 +64,25 @@ export class StoryComponent {
   getLastChapterId(storyId: number): number | null {
     return this.lastChapterIds[storyId] ?? null;
   }
+  deleteStoryButton(storyId: number){
+    const writerId = Number(sessionStorage.getItem('userId'));
+
+    this.storyService.deleteStory(storyId)
+    .subscribe({
+      next: (result) => {
+        console.log(result);
+        this.storyService.getListStoryWriter(writerId)
+        .subscribe({
+          next: (story) => {
+            this.listStoryUser = story;
+            console.log(this.listStoryUser);
+            this.loadLastChapters();
+            this.loadLastChapterIds()
+          }
+        })
+      }
+    })
+  
+  
+  }
 }
