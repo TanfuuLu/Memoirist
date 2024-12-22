@@ -8,12 +8,12 @@
 
   <div class=" w-full ">
     <div class="">
-      <div class="bg-black mx-[15%] ml-[20%] h-[95vh] overflow-scroll mt-[5vh] no-scrollbar rounded-t-3xl ">
+      <div class="bg-black mx-[15%] ml-[20%] h-[95vh]  overflow-scroll mt-[5vh] no-scrollbar rounded-t-3xl ">
         <!-- post -->
-        <div class="flex border-b-2  ">
-          <div class="bg-black grid grid-cols-12 min-w-[100%]">
+        <div class="flex   ">
+          <div class="bg-neutral-900 rounded-2xl m-2 grid grid-cols-12 min-w-[98%]">
             <div class="flex ml-2 col-span-1">
-              <img src="img/avatar/defaultavatar.jpg" class="m-2 mt-3 rounded-full w-12 h-12" />
+              <img src="img/avatar/{{postUser?.writerAvatar}}" class="m-2 mt-3 rounded-full w-12 h-12" />
             </div>
             <div class="col-span-11 text-white">
               <!-- Name and datetime -->
@@ -78,17 +78,17 @@
         </div>
         <!-- end post -->
         <!-- Reply to post -->
-        <div class=" border-b-2 border-gray-950 text-white bg-black grid grid-cols-12 ">
-          <div class="flex items-start ml-2 col-span-1 ">
+        <div class="m-2 bg-neutral-900  text-white rounded-2xl grid grid-cols-12 ">
+          <div class="flex items-start ml-2 m-2  col-span-1 ">
             <img src="img/avatar/{{user?.writerAvatar}}" class="rounded-full w-16 h-16" alt="">
           </div>
           <div class=" col-span-11">
             <form [formGroup]="frmAddComment" class="flex justify-around w-full mt-5">
               <textarea name="" id="" rows="1" formControlName="commentContext"
-                class="resize-none p-2 min-w-[85%] flex bg-neutral-800 px-2 rounded-3xl  focus:outline-none no-scrollbar"
+                class="resize-none p-2 min-w-[85%] flex bg-neutral-900 px-2 rounded-3xl  focus:outline-none no-scrollbar"
                 placeholder="Reply to post"></textarea>
               <button (click)="addCommentButton()" type="submit"
-                class=" px-6 mr-3 py-2 text-white rounded-full bg-neutral-700">Send</button>
+                class=" px-6 mr-3 py-2 text-white rounded-full bg-neutral-800 hover:bg-neutral-900">Gửi</button>
             </form>
           </div>
         </div>
@@ -116,10 +116,7 @@
                 <!-- Dropdown content -->
                 <div *ngIf="isDropdownOpen[item?.commentPostId!]"
                   class="absolute right-0 bg-neutral-800 border border-gray-700 rounded-lg shadow-lg">
-                  <button (click)="onEditComment(item?.commentPostId!)"
-                    class="block text-left text-sm px-4 py-2 text-blue-400 hover:bg-gray-700 hover:text-blue-600">
-                    Sửa
-                  </button>
+                 
                   <button (click)="onDeleteComment(item?.commentPostId!)"
                     class="block text-left text-sm px-4 py-2 text-red-400 hover:bg-gray-700 hover:text-red-600">
                     Xóa

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService, ResetPasswordRequest, VerifyCodeRequest } from '../../Service/Auth.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class ForgetPasswordComponent implements OnInit {
   requestModel!: VerifyCodeRequest;
   requestForm!: FormGroup;
   requestResetPasswordModel!: ResetPasswordRequest;
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService, private route: Router){
     this.checkEmailRequest = this.authService.checkEmail;
     this.requestModel = new VerifyCodeRequest;
     this.requestResetPasswordModel = new ResetPasswordRequest;
@@ -45,6 +45,7 @@ export class ForgetPasswordComponent implements OnInit {
           .subscribe({
             next:(result) =>{
               console.log(result);
+              this.route.navigate(['/login']);
             }
           })
         }

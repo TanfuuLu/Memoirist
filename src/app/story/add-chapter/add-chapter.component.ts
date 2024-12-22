@@ -29,7 +29,10 @@ export class AddChapterComponent implements OnInit {
   onSubmit(){
     
     this.chapter = this.formAddChapter.value;
-    this.chapter.chapterContext = this.htmlContent; 
+    if(this.htmlContent != ''){
+      this.chapter.chapterContext = this.htmlContent; 
+    }
+   
     this.chapterService.addChapter(this.storyId, this.chapter)
     .subscribe({
       next: (chapter) => {
@@ -53,9 +56,13 @@ export class AddChapterComponent implements OnInit {
     })
   }
   
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.selectedFile = input.files[0];
+    }
   }
+
   onUpload(event: Event): void {
     event.preventDefault();
     if (this.selectedFile) {
@@ -65,6 +72,7 @@ export class AddChapterComponent implements OnInit {
         },
         (error) => {
           console.error('Có lỗi xảy ra:', error);
+          alert('Đã xảy ra lỗi khi tải file!');
         }
       );
     } else {

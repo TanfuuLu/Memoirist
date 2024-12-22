@@ -1,26 +1,60 @@
 @for (story of listStoryWriter; track story) {
-    <div class="text-white overflow-scroll no-scrollbar bg-black  " >
-        <div class="grid grid-cols-5 content-center place-items-center min-w-full m-2 bg-neutral-950 rounded-2xl  py-5">
-            <div class="ml-[5%] text-xl col-span-2">
-                <a routerLink="/story-view/{{story.storyId}}/story-info" class="hover:text-stone-200 hover:font-bold">{{story.storyName}}</a>
-            </div>
-            <div class="">
-                <p>{{story.storyDateWrited}}</p>
-            </div>
-            <div>
-                 @if(!checkFollowingStory(story.storyId!)){
-                    <button (click)="userFollowStory(story.storyId!)" class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Follow Story</button>
+<div class="text-white overflow-scroll no-scrollbar bg-black  ">
+    <div class="grid grid-cols-6 content-center place-items-center min-w-full m-2 bg-neutral-950 rounded-2xl  py-5">
+        <div class="ml-[5%] text-xl col-span-2">
+            <a routerLink="/story-view/{{story.storyId}}/story-info"
+                class="hover:text-stone-200 hover:font-bold">{{story.storyName}}</a>
+        </div>
+        <div class="">
+            <p>{{story.storyDateWrited}}</p>
+        </div>
+        <div>
+            @if(!checkFollowingStory(story.storyId!)){
+            <button (click)="userFollowStory(story.storyId!)"
+                class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-5">Follow Story</button>
 
-                }@else {
-                    <button (click)="userFollowStory(story.storyId!)" class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Following</button>
+            }@else {
+            <button (click)="userFollowStory(story.storyId!)"
+                class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Following</button>
 
-                }
+            }
+        </div>
+        <div class="text-white mr-10 ">
+            <a routerLink="/story/{{story.storyId}}/chapter/{{getLastChapterId(story.storyId!)}}"
+                class="hover:underline ">Chương: {{getLastChapterNumber(story.storyId!)}}</a>
+        </div>
+        <div>
+
+
+            <button (click)="openReportModal(story.storyId!)" class="px-2 py-1 bg-rose-800 text-white rounded text-sm">
+                Báo cáo
+            </button>
+            <!-- Modal Báo Cáo -->
+            <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div class="bg-neutral-800 p-6 rounded-lg w-1/3">
+                    <h2 class="text-lg font-bold text-white mb-4">Báo cáo truyện - {{story.storyName}}</h2>
+                    <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+                        <div class="mb-4">
+                            <label for="violation" class="block text-sm text-neutral-300 mb-2">Lý do báo cáo</label>
+                            <select id="violation" formControlName="violation"
+                                class="w-full px-4 py-2 rounded bg-neutral-900 text-neutral-300">
+                                <option value="" disabled selected>Chọn lý do...</option>
+                                <option *ngFor="let reason of reportReasons" [value]="reason">{{ reason }}</option>
+                            </select>
+                            <div *ngIf="reportForm.get('violation')?.touched && reportForm.get('violation')?.invalid"
+                                class="text-red-500 text-sm mt-2">
+                                Vui lòng chọn lý do báo cáo.
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded mr-2"
+                                (click)="closeReportModal()">Hủy</button>
+                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded"
+                                [disabled]="reportForm.invalid">Gửi báo cáo</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="text-white mr-10 ">
-                <a  routerLink="/story/{{story.storyId}}/chapter/{{getLastChapterId(story.storyId!)}}" class="hover:underline ">Chương: {{getLastChapterNumber(story.storyId!)}}</a>
-            </div>
-            
         </div>
     </div>
-}
-
+</div>}

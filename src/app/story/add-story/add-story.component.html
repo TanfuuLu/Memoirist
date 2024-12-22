@@ -8,28 +8,14 @@
       <form [formGroup]="formAddStory" class="flex h-[95vh] w-full">
         <div class="w-[100%]">
           <div class="h-[20%]  text-white ">
-            <div class="flex mx-14 justify-around">
-              <p class="m-2 border-2 px-2 bg-stone-900 rounded-xl ">TÊN TRUYỆN</p>
-              <p class="m-2 border-2 px-2 bg-stone-900 rounded-xl ">ẢNH BÌA</p>
+            <div class="flex mx-14">
+              <p class="m-2 border-2 px-2 bg-stone-900 rounded-xl p-3">TÊN TRUYỆN</p>
+          
             </div>
             <div class="mx-16 flex justify-self-stretch h-[60%]">
               <textarea name="" id="storyName" formControlName="storyName"
-                class="resize-none border-2 rounded-xl w-[70%] bg-transparent focus:outline-neutral-700  no-scrollbar focus:outline-none p-2"></textarea>
-              <div class=" justify-items-center ml-4">
-                <label for="storyPicture" class="cursor-pointer">
-                  <img class="w-36 h-40" *ngIf="imagePreviews; else placeholder" [src]="imagePreviews"
-                    alt="Image Preview"  />
-                  <ng-template #placeholder>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-8">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m0-3-3-3m0 0-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75" />
-                    </svg>
-                  </ng-template>
-                  <input type="file" id="storyPicture" formControlName="storyPicture" (change)="onFileSelected($event)" name="storyPicture" hidden
-                    accept="image/*">
-                </label>
-              </div>
+                class="resize-none border-2 rounded-xl w-[100%] bg-transparent focus:outline-neutral-700  no-scrollbar focus:outline-none p-2"></textarea>
+              
             </div>
           </div>
           <div class="h-[30%] mx-16 mt-20 text-white">
@@ -63,7 +49,7 @@
                 <div class=" text-white  border-2 h-[90vh] overflow-scroll rounded-3xl no-scrollbar bg-black p-2">
 
                   <h1 style="font-size: 48px; font-weight: bold;">ĐIỀU KHOẢN VÀ ĐIỀU KIỆN VỀ BẢN QUYỀN</h1>
-                  <p><strong>Cập nhật lần cuối: [ngày/tháng/năm]</strong></p>
+                  <p><strong>Cập nhật lần cuối: [21/12/2024]</strong></p>
                   <p>Chào mừng bạn đến với <strong>Memoirist</strong>! Khi bạn sử dụng dịch vụ của chúng tôi, bao gồm việc đăng tải truyện và các nội dung khác lên nền tảng, bạn đồng ý tuân thủ các Điều khoản và Điều kiện sau đây. Điều này nhằm bảo vệ quyền lợi của người dùng, bảo vệ bản quyền và đảm bảo nền tảng hoạt động hiệu quả và tuân thủ các quy định pháp luật.</p>
                   
                   <h2 style="font-size: 36px; font-weight: bold;">1. Định nghĩa</h2>
@@ -133,22 +119,20 @@
                   </ul>
                   
                   <h2 style="font-size: 36px; font-weight: bold;">8. Liên hệ</h2>
-                  <p>- Mọi thắc mắc, vui lòng liên hệ qua email: [email.com].</p>
+                  <p>- Mọi thắc mắc, vui lòng liên hệ qua email: [lutanfuu&#64;gmail.com].</p>
                   
                 </div>
               </div>
             </div>
             @if(!isStoryValid() || formAddStory.get('termsAndConditionsCheck')?.value == false ){
             <div class="flex justify-center mt-10 ">
-              <button disabled type="submit" (click)="onSubmit()" class=" border-2 px-5 rounded-2xl py-3">Create Your
-                Story</button>
+              <button disabled type="submit" (click)="onSubmit()" class=" border-2 px-5 rounded-2xl py-3">Viết Truyện</button>
             </div>
             }@else {
             <div class="flex justify-center mt-10">
 
               <button type="submit" (click)="onSubmit()"
-                class="hover:bg-neutral-900 bg-neutral-800 hover:shadow-lg border-2 px-5 rounded-2xl py-3">Create Your
-                Story</button>
+                class="hover:bg-neutral-900 bg-neutral-800 hover:shadow-lg border-2 px-5 rounded-2xl py-3">Viết Truyện</button>
             </div>
             }
           </div>

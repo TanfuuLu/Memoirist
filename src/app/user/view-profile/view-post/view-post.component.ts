@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post, PostService } from '../../../Service/Post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from '../../../Service/Auth.service';
 
 @Component({
   selector: 'app-view-post',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './view-post.component.html',
   styleUrl: './view-post.component.scss'
 })

@@ -77,12 +77,14 @@ export class ProfileComponent implements OnInit {
     if (this.updateProfileForm.valid) {
       this.updateUserProfile.writerFullname = this.updateProfileForm.get('writerFullname')?.value;
       this.updateUserProfile.writerUsername = this.updateProfileForm.get('writerUsername')?.value;
-      this.updateUserProfile.writerAvatar = this.updateProfileForm.get('writerAvatar')?.value;
+      this.updateUserProfile.writerAvatar = this.writerImg;
       this.updateUserProfile.writerBio = this.updateProfileForm.get('writerBio')?.value;
       this.userService.updateProfile(Number(this.userId), this.updateUserProfile)
       .subscribe({
         next: (result) =>{
           console.log(result);
+          // this.userProfile = result;
+          this.closeModal();
         }
     })
     } else {
@@ -139,6 +141,7 @@ export class ProfileComponent implements OnInit {
           console.log('File uploaded successfully:', fileName);
           // Cập nhật postImage với đường dẫn từ server (giả sử server trả về tên file hoặc URL)
           this.writerImg = fileName; // Lưu tên file hoặc URL trả về từ server
+          console.log(this.writerImg);
         },
         error: (err) => {
           console.error('Upload failed', err);

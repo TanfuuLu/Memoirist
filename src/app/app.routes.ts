@@ -9,7 +9,6 @@ import { StoryInformationComponent } from './story/story-information/story-infor
 import { LoginComponent } from './authenticate/login/login.component';
 import { ViewProfileComponent } from './user/view-profile/view-profile.component';
 import { AddChapterComponent } from './story/add-chapter/add-chapter.component';
-import { Component } from '@angular/core';
 import { RefreshComponentComponent } from './refresh-component/refresh-component.component';
 import { ReadChapterComponent } from './story/read-chapter/read-chapter.component';
 import { ForgetPasswordComponent } from './authenticate/forget-password/forget-password.component';
@@ -71,5 +70,5 @@ export const routes: Routes = [
    },
    {
       path: 'search-user', component:SearchUserComponent
-   }
+   },
 ];

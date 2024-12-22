@@ -4,23 +4,37 @@
     </div>
     <div class="bg-neutral-950 mt-[5vh] mx-[15%] ml-[20%] rounded-t-3xl  min-h-[95vh]">
         <div class="flex">
-            <form action="" [formGroup]="frmSearch" class="flex w-full" >
+            <form action="" [formGroup]="frmSearch" class="flex w-full">
                 <input type="text" placeholder="Viết tên truyện cần tìm" formControlName="storyName"
-                class=" w-[80%] m-2 bg-neutral-800 text-white h-[5vh] rounded-2xl p-2 ">
-            <button type="submit" (click)="searchStory()"
-                class=" text-white bg-neutral-800 hover:bg-neutral-900 m-2 rounded-2xl w-[15%] h-[5vh]">Search</button>
+                    class=" w-[80%] m-2 bg-neutral-800 text-white h-[5vh] rounded-2xl p-2 ">
+                <button type="submit" (click)="searchStory()"
+                    class=" text-white bg-neutral-800 hover:bg-neutral-900 m-2 rounded-2xl w-[15%] h-[5vh]">Search</button>
             </form>
         </div>
         @for (story of listStoryResult; track story) {
         <div class="mt-2   w-full flex justify-center">
-          
-            <div class="bg-neutral-900 w-full m-1 rounded-2xl  h-[10vh]  text-white grid grid-cols-4 content-center place-items-center">
-                <a  routerLink="/story/{{story.storyId}}/story-info" class=" hover:font-bold">{{story.storyName}}</a>
+
+            <div
+                class="bg-neutral-900 w-full m-1 rounded-2xl  h-[10vh]  text-white grid grid-cols-4 content-center place-items-center">
+                <a routerLink="/story/{{story.storyId}}/story-info" class=" hover:font-bold">{{story.storyName}}</a>
                 <p>{{story.storyAuthor}}</p>
                 <p>{{story.storyDateWrited}}</p>
-                <p></p>
+                @if(checkStoryUser(story.storyId!)){
+                @if(!checkFollowingStory(story.storyId!)){
+                <button (click)="userFollowStory(story.storyId!)"
+                    class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Follow Story</button>
+
+                }@else {
+                <button (click)="userFollowStory    (story.storyId!)"
+                    class="bg-neutral-800 hover:bg-neutral-900  rounded-3xl px-10">Following</button>
+
+                }
+                }
+
+
+
             </div>
-          
+
         </div> }
     </div>
 </div>

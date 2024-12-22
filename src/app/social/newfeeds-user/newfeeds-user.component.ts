@@ -32,7 +32,11 @@ export class NewfeedsUserComponent implements OnInit {
   formattedDate = this.currentDate.toLocaleDateString('vi-VN');
   imagePreviews: string[] = [];
   selectedPostId: number | null = null;
+ 
   dropdownStates: Map<number, boolean> = new Map();
+  editForm!: FormGroup 
+  isEditing = false;
+  editedPost!: Post | null;
   openModal() {
     this.isModalOpen = true;
   }
@@ -52,6 +56,10 @@ export class NewfeedsUserComponent implements OnInit {
     if (!sessionStorage.getItem('userId') || !sessionStorage.getItem('authToken')){
       this.authService.loadCurrentUser();
     }
+    this.editForm = new FormGroup({
+      postContext: new FormControl(null, [Validators.required]),
+    });
+    
   }
   checkUserId(writerId?: number | null): boolean {
     if (writerId == Number(sessionStorage.getItem('userId'))) {
@@ -179,11 +187,6 @@ export class NewfeedsUserComponent implements OnInit {
     return this.dropdownStates.get(postId) || false;
   }
 
-  // Hàm Edit
-  onEdit(postId: number): void {
-    console.log(`Edit post with ID: ${postId}`);
-    // Thêm logic chỉnh sửa ở đây
-  }
 
   // Hàm Delete
   onDelete(postId: number): void {
@@ -199,5 +202,46 @@ export class NewfeedsUserComponent implements OnInit {
       })
     }
    })
+  }
+  onEdit(post: Post) {
+    this.isEditing = true;
+    this.editedPost = post;
+    this.editForm.patchValue({
+      postContext: post.postContext,
+    });
+  }
+  editContextPost(newContext: string) {
+    if (this.editedPost) {
+      this.editedPost.postContext = newContext; // Gán nội dung mới cho bài viết đang chỉnh sửa
+      this.postService.editContextPost(this.editedPost.postId, newContext).subscribe({
+        next: (updatedPost) => {
+          console.log('Cập nhật bài viết thành công:', updatedPost);
+          // Đồng bộ danh sách bài viết
+          const index = this.listPostNewfeeds?.findIndex(post => post.postId === updatedPost.postId);
+          if (index !== undefined && index !== -1) {
+            this.listPostNewfeeds![index] = updatedPost;
+          }
+          this.cancelEdit(); // Đóng modal chỉnh sửa
+        },
+        error: (err) => {
+          console.error('Lỗi khi chỉnh sửa bài viết:', err);
+          alert('Không thể cập nhật bài viết, vui lòng thử lại.');
+        }
+      });
+    }
+  }
+
+  saveEdit() {
+    if (this.editForm.valid && this.editedPost) {
+      const newContext = this.editForm.get('postContext')?.value;
+      this.editContextPost(newContext);
+    } else {
+      alert('Vui lòng nhập nội dung hợp lệ.');
+    }
+  }
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.editedPost = null;
   }
 }

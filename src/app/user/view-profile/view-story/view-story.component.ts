@@ -4,11 +4,13 @@ import { Story, StoryReponse, StoryService } from '../../../Service/Story.servic
 import { UserProfile, UserService } from '../../../Service/User.service';
 import { Chapter, ChapterService } from '../../../Service/Chapter.service';
 import { RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-story',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ReactiveFormsModule,CommonModule],
   templateUrl: './view-story.component.html',
   styleUrl: './view-story.component.scss'
 })
@@ -19,8 +21,16 @@ export class ViewStoryComponent implements OnInit{
     lastChaptersNumber: { [storyId: number]: number } = {};
     listChapter!: Chapter[];
     lastChapterIds: { [storyId: number]: number } = {};
-  constructor(private authService: AuthService, private storyService: StoryService, private chapterService: ChapterService, private userService: UserService){
-    
+    isModalOpen = false;
+    selectedStoryId!: number;
+  
+    reportForm: FormGroup;
+    reportReasons = ['Nội dung không phù hợp', 'Xuyên tạc/liên quan chính trị', 'Đạo sản phẩm', 'Tác phẩm 18+'];
+  
+  constructor(private fb: FormBuilder,private authService: AuthService, private storyService: StoryService, private chapterService: ChapterService, private userService: UserService){
+    this.reportForm = this.fb.group({
+      violation: ['', Validators.required],
+    });
   }
   ngOnInit(): void { 
     this.authService.checkLogin();
@@ -113,4 +123,32 @@ export class ViewStoryComponent implements OnInit{
     }
     return this.userLogin.listFollowingStoryId.includes(storyId);
   }
+  openReportModal(storyId: number) {
+    this.selectedStoryId = storyId;
+    this.isModalOpen = true;
+  }
+
+  closeReportModal() {
+    this.isModalOpen = false;
+  }
+
+  submitReport() {
+    if (this.reportForm.valid) {
+      const data = {
+        storyReportId: this.selectedStoryId,
+        violation: this.reportForm.value.violation,
+        dateTimeReport: new Date().toISOString(),
+      };
+
+      this.storyService.reportStory(data).subscribe({
+        next: () => {
+          alert('Báo cáo thành công');
+          this.closeReportModal();
+        },
+        error: () => alert('Đã xảy ra lỗi. Vui lòng thử lại.'),
+      });
+    }
+  }
+
+ 
 }

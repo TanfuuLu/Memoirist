@@ -4,7 +4,6 @@ import { Story, StoryService } from '../../Service/Story.service';
 import { Chapter, ChapterService } from '../../Service/Chapter.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AddStoryComment, Comment, CommentStoryService } from '../../Service/CommentStory.service';
 import { AuthService } from '../../Service/Auth.service';
 
 @Component({
@@ -19,8 +18,7 @@ export class StoryInformationComponent implements OnInit {
   listChapterStory?: Chapter[];
   listComment!: Comment[];
   frmAddComment!: FormGroup;
-  addComment?: AddStoryComment;
-  constructor(private storyService: StoryService, private router: ActivatedRoute, private chapterService: ChapterService, private commentService: CommentStoryService, private authService: AuthService) {
+  constructor(private storyService: StoryService, private router: ActivatedRoute, private chapterService: ChapterService, private authService: AuthService) {
     this.frmAddComment = new FormGroup({
       commentContext: new FormControl(null, [Validators.required])
     })
@@ -37,17 +35,12 @@ export class StoryInformationComponent implements OnInit {
           this.listChapterStory = chapter;
         }
       })
+      
     this.storyService.getStoryById(storyId)
       .subscribe({
         next: (story) => {
           this.storyInfo = story;
           console.log(this.storyInfo);
-        }
-      })
-      this.commentService.getListStoryComment(storyId)
-      .subscribe({
-        next: (result) => {
-          console.log(result);
         }
       })
 

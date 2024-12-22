@@ -57,7 +57,7 @@ export class UserService {
   uploadImages(file: File): Observable<string> {
     const formData = new FormData();
     formData.append('file', file);  // Chỉ append một file thay vì một mảng
-    return this.http.post<string>(`${this.apiUrl}/upload`, formData);
+    return this.http.post<string>(`${this.apiUrl}/upload`, formData,{responseType: 'text' as 'json' });
   }
   updateProfile(userId: number, updateUser: UpdateUserProfile  ): Observable<UserProfile>{
      const headers = new HttpHeaders({

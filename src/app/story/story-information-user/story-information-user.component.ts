@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Story, StoryService } from '../../Service/Story.service';
 import { Chapter, ChapterService } from '../../Service/Chapter.service';
-import { CommentStoryService } from '../../Service/CommentStory.service';
 import { AuthService } from '../../Service/Auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
@@ -15,7 +14,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class StoryInformationUserComponent {
  storyInfo?: Story;
    listChapterStory?: Chapter[];
-   constructor(private storyService: StoryService, private router: ActivatedRoute, private chapterService: ChapterService, private commentService: CommentStoryService, private authService: AuthService) {
+   constructor(private storyService: StoryService, private router: ActivatedRoute, private chapterService: ChapterService, private authService: AuthService) {
    
    }
    ngOnInit(): void {
@@ -35,12 +34,6 @@ export class StoryInformationUserComponent {
          next: (story) => {
            this.storyInfo = story;
            console.log(this.storyInfo);
-         }
-       })
-       this.commentService.getListStoryComment(storyId)
-       .subscribe({
-         next: (result) => {
-           console.log(result);
          }
        })
    }

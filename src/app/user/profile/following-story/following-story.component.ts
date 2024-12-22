@@ -76,4 +76,5 @@ export class FollowingStoryComponent implements OnInit {
   getLastChapterId(storyId: number): number | null {
     return this.lastChapterIds[storyId] ?? null;
   }
+  
 }

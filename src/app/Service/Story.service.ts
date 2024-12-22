@@ -4,8 +4,6 @@ import { ActivatedRoute } from "@angular/router";
 import { Observable, ObservableLike } from "rxjs";
 import { Chapter } from "./Chapter.service";
 import { UserProfile } from "./User.service";
-import { Comment, CommentStoryService } from "./CommentStory.service";
-
 
 
 export interface Story {
@@ -45,9 +43,16 @@ export interface AddStory {
     // public bool TermsAndConditionsCheck { get; set; }
 
 }
+export interface StoryReport {
+    storyReportId: number;
+    violation?: string | null;
+    dateTimeReport?: string | null;
+  }
 @Injectable({ providedIn: 'root' })
 export class StoryService {
     private readonly storyApiUrl = 'https://localhost:7055/api/Story';
+    private readonly reportStoryApiUrl = 'https://localhost:7055/api/ReportStory';
+
     story?: Story;
     constructor(private http: HttpClient, private route: ActivatedRoute) {
 
@@ -79,6 +84,16 @@ export class StoryService {
     }
     deleteStory(storyId: number): Observable<Story> {
         return this.http.delete<Story>(`${this.storyApiUrl}/delete-story/${storyId}`);
+    }
+    reportStory(itemReport: StoryReport): Observable<StoryReport>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        });
+        return this.http.post<StoryReport>(`${this.reportStoryApiUrl}/report-story`, itemReport,{ headers });
+    }
+    getListReported(): Observable<Story[]>{
+        return this.http.get<Story[]>(`${this.reportStoryApiUrl}/get-reported-story`);
     }
     
 

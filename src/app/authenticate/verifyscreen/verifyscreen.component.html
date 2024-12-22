@@ -19,7 +19,7 @@
     <div class="text-white p-1 flex justify-center">
       <div class="border-none rounded-2xl w-fit h-fit p-5 bg-black bg-opacity-90">
         <div class="flex justify-center font-bold text-lg m-1">
-          <h5>Find your Email::</h5>
+          <h5>Tìm tài khoản bằng email:</h5>
         </div>
         <div class="">
           <form [formGroup]="emailForm"  (ngSubmit)="submitForm()">
@@ -27,17 +27,17 @@
               <input type="writerEmail" id="Account" formControlName = "writerEmail"
                 class="text-white block bg-stone-800 border-none rounded" size="35" />
               @if (checkEmail === false) {
-                <span>Email not found or Invalid Email</span>
+                <span>Email không tồn tại hoặc hợp lệ</span>
               }
             </div>
             <div class="bg-white rounded-xl flex justify-center my-3">
               <button class="font-bold text-black border-none m-1" type="submit"
                 >
-                Confirm
+                Xác Nhận
               </button>
             </div>
             <div class="font-bold">
-              <a routerLink="/login" routerLinkActive="active">Login</a>
+              <a routerLink="/login" routerLinkActive="active">Đăng Nhập</a>
             </div>
           </form>
         </div>

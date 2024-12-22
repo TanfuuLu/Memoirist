@@ -26,6 +26,11 @@ export class PostComponent implements OnInit{
   postForm!: FormGroup;
   base64Images: string[] = [];
   imagePreviews: string[] = [];
+  dropdownStates: Map<number, boolean> = new Map();
+  editForm!: FormGroup 
+  isEditing = false;
+  editedPost!: Post | null;
+
   openModal(){
     this.isModalOpen =true;
   }
@@ -43,6 +48,9 @@ export class PostComponent implements OnInit{
     this.postForm = new FormGroup({
       postContext: new FormControl(null, [Validators.required])
     })
+    this.editForm = new FormGroup({
+      postContext: new FormControl(null, [Validators.required]),
+    });
   }
   ngOnInit(): void {
     this.authService.checkLogin();
@@ -151,4 +159,75 @@ export class PostComponent implements OnInit{
       },
     });
   }
-}
+  onDelete(postId: number): void {
+    const userId = this.router.snapshot.paramMap.get('id');
+    if (confirm('Bạn có chắc chắn muốn xóa bình luận này không?')) {
+    this.postService.deletePost(postId)
+    .subscribe({
+     next: (result) => {
+       console.log(result);
+       this.postService.getListByWriterId(Number(userId))
+       .subscribe({
+         next: (post) => {
+           this.listPost = post;
+         }
+       })
+     }
+    })
+  }
+   }
+   
+  toggleDropdown(postId: number): void {
+    const currentState = this.dropdownStates.get(postId) || false;
+    this.dropdownStates.set(postId, !currentState);
+  }
+
+
+  // Kiểm tra dropdown có mở không
+  isDropdownOpen(postId: number): boolean {
+    return this.dropdownStates.get(postId) || false;
+  }
+
+  // Hàm Edit
+ onEdit(post: Post) {
+     this.isEditing = true;
+     this.editedPost = post;
+     this.editForm.patchValue({
+       postContext: post.postContext,
+     });
+   }
+   editContextPost(newContext: string) {
+     if (this.editedPost) {
+       this.editedPost.postContext = newContext; // Gán nội dung mới cho bài viết đang chỉnh sửa
+       this.postService.editContextPost(this.editedPost.postId, newContext).subscribe({
+         next: (updatedPost) => {
+           console.log('Cập nhật bài viết thành công:', updatedPost);
+           // Đồng bộ danh sách bài viết
+           const index = this.listPost?.findIndex(post => post.postId === updatedPost.postId);
+           if (index !== undefined && index !== -1) {
+             this.listPost![index] = updatedPost;
+           }
+           this.cancelEdit(); // Đóng modal chỉnh sửa
+         },
+         error: (err) => {
+           console.error('Lỗi khi chỉnh sửa bài viết:', err);
+           alert('Không thể cập nhật bài viết, vui lòng thử lại.');
+         }
+       });
+     }
+   }
+ 
+   saveEdit() {
+     if (this.editForm.valid && this.editedPost) {
+       const newContext = this.editForm.get('postContext')?.value;
+       this.editContextPost(newContext);
+     } else {
+       alert('Vui lòng nhập nội dung hợp lệ.');
+     }
+   }
+ 
+   cancelEdit() {
+     this.isEditing = false;
+     this.editedPost = null;
+   }
+  }

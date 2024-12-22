@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserProfile, UserService } from '../../Service/User.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../Service/Auth.service';
 
 @Component({
   selector: 'app-search-user',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './search-user.component.html',
   styleUrl: './search-user.component.scss'
 })
@@ -35,6 +35,14 @@ export class SearchUserComponent implements OnInit {
           }
         })
     }
+  }
+  checkUserId(writerId?: number | null): boolean {
+    if (writerId == Number(sessionStorage.getItem('userId'))) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
   searchUser() {
     const value = this.frmSearch.get('userName')?.value;

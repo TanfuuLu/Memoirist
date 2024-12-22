@@ -29,14 +29,14 @@
                         <p class="border p-2 bg-stone-900 rounded-xl">Nội Dung:</p>
                         
                         <div>
-                            <input class="w-24 " type="file" (change)="onFileSelected($event)" />
+                            <input class="w-24 " type="file" (change)="onFileChange($event)" />
                             <button (click)="onUpload($event)" [disabled]="!selectedFile">Tải lên</button>
                             <button class="border p-2 bg-stone-900 rounded-xl " type="submit">Đăng Tải</button>
                         </div>
                     </div>
                     <div class="h-full">
                         @if(htmlContent){
-                            <div #contentContainer  [innerHTML]="htmlContent"  class="resize-none border-t rounded-xl text-white w-full h-full bg-transparent focus:outline-neutral-700 focus:outline-none p-2 no-scrollbar"></div>
+                            <div #contentContainer  [innerHTML]="htmlContent"  class="content resize-none border-t rounded-xl text-white w-full h-full bg-transparent focus:outline-neutral-700 focus:outline-none p-2 no-scrollbar"></div>
 
                         }@else {
                             <textarea name="" id="" formControlName="chapterContext"

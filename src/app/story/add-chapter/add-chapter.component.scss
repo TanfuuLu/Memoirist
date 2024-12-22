@@ -7,3 +7,12 @@
     border-radius: 100vh;
     background: #f7f4ed;
   }
+  .content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+  }

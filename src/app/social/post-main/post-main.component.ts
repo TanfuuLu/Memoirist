@@ -108,6 +108,7 @@ export class PostMainComponent implements OnInit {
     }
   }
   addCommentButton() {
+    this.authService.loadCurrentUser();
     this.authService.currentUser$.subscribe(user => {
       this.user = user;
       this.addComment = {
@@ -140,11 +141,7 @@ export class PostMainComponent implements OnInit {
     this.isDropdownOpen[commentId] = !this.isDropdownOpen[commentId];
   }
 
-  onEditComment(commentId: number): void {
-    console.log(`Sửa bình luận với ID: ${commentId}`);
-    // Thêm logic sửa bình luận
-  }
-
+  
   onDeleteComment(commentId: number): void {
     if (confirm('Bạn có chắc chắn muốn xóa bình luận này không?')) {
       this.commentService.deleteComment(commentId)
