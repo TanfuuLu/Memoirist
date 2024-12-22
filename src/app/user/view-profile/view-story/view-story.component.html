@@ -33,7 +33,7 @@
             <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                 <div class="bg-neutral-800 p-6 rounded-lg w-1/3">
                     <h2 class="text-lg font-bold text-white mb-4">Báo cáo truyện - {{story.storyName}}</h2>
-                    <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+                    <form [formGroup]="reportForm" (ngSubmit)="submitReport(story)">
                         <div class="mb-4">
                             <label for="violation" class="block text-sm text-neutral-300 mb-2">Lý do báo cáo</label>
                             <select id="violation" formControlName="violation"
@@ -50,7 +50,7 @@
                             <button type="button" class="px-4 py-2 bg-gray-600 text-white rounded mr-2"
                                 (click)="closeReportModal()">Hủy</button>
                             <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded"
-                                [disabled]="reportForm.invalid">Gửi báo cáo</button>
+                                [disabled]="reportForm.invalid" (click)="closeReportModal()">Gửi báo cáo</button>
                         </div>
                     </form>
                 </div>

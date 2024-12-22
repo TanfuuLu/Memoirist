@@ -23,7 +23,8 @@ export class ViewStoryComponent implements OnInit{
     lastChapterIds: { [storyId: number]: number } = {};
     isModalOpen = false;
     selectedStoryId!: number;
-  
+    currentDate = new Date();
+    formattedDate = this.currentDate.toLocaleDateString('vi-VN');
     reportForm: FormGroup;
     reportReasons = ['Nội dung không phù hợp', 'Xuyên tạc/liên quan chính trị', 'Đạo sản phẩm', 'Tác phẩm 18+'];
   
@@ -132,18 +133,19 @@ export class ViewStoryComponent implements OnInit{
     this.isModalOpen = false;
   }
 
-  submitReport() {
+  submitReport(story: StoryReponse) {
     if (this.reportForm.valid) {
       const data = {
         storyReportId: this.selectedStoryId,
         violation: this.reportForm.value.violation,
-        dateTimeReport: new Date().toISOString(),
+        dateTimeReport: this.formattedDate,
+        storyWriterName: story.storyAuthor,
+        storyName: story.storyName
       };
-
+      console.log(data);
       this.storyService.reportStory(data).subscribe({
-        next: () => {
-          alert('Báo cáo thành công');
-          this.closeReportModal();
+        next: (result) => {
+          console.log(result);
         },
         error: () => alert('Đã xảy ra lỗi. Vui lòng thử lại.'),
       });

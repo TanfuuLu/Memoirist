@@ -16,6 +16,7 @@ import { VerifyscreenComponent } from './authenticate/verifyscreen/verifyscreen.
 import { SearchBarComponent } from './social/search-bar/search-bar.component';
 import { SearchUserComponent } from './social/search-user/search-user.component';
 import { StoryInformationUserComponent } from './story/story-information-user/story-information-user.component';
+import { ReportStoryComponent } from './authenticate/report-story/report-story.component';
 
 export const routes: Routes = [
    {
@@ -71,4 +72,7 @@ export const routes: Routes = [
    {
       path: 'search-user', component:SearchUserComponent
    },
+   {
+      path: 'report-dashboard', component: ReportStoryComponent
+   }
 ];

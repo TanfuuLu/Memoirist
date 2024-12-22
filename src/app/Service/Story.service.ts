@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Observable, ObservableLike } from "rxjs";
 import { Chapter } from "./Chapter.service";
 import { UserProfile } from "./User.service";
+import { report } from "process";
 
 
 export interface Story {
@@ -44,9 +45,12 @@ export interface AddStory {
 
 }
 export interface StoryReport {
-    storyReportId: number;
-    violation?: string | null;
-    dateTimeReport?: string | null;
+    reportId?: number;
+  storyReportId: number;
+  violation?: string | null;
+  dateTimeReport?: string | null;
+  storyWriterName?: string | null;
+  storyName?: string | null;
   }
 @Injectable({ providedIn: 'root' })
 export class StoryService {
@@ -92,8 +96,14 @@ export class StoryService {
         });
         return this.http.post<StoryReport>(`${this.reportStoryApiUrl}/report-story`, itemReport,{ headers });
     }
-    getListReported(): Observable<Story[]>{
-        return this.http.get<Story[]>(`${this.reportStoryApiUrl}/get-reported-story`);
+    getListReported(): Observable<StoryReport[]>{
+        return this.http.get<StoryReport[]>(`${this.reportStoryApiUrl}/get-reported-story`);
+    }
+    acceptReport(reportId: number): Observable<StoryReport[]>{
+        return this.http.get<StoryReport[]>(`${this.reportStoryApiUrl}/accept-report/${reportId}`);
+    }
+    rejectReport(reportId: number): Observable<StoryReport[]>{
+        return this.http.get<StoryReport[]>(`${this.reportStoryApiUrl}/reject-report/${reportId}`);
     }
     
 
