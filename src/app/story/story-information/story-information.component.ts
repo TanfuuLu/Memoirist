@@ -62,5 +62,8 @@ export class StoryInformationComponent implements OnInit {
         }
       })
   }
+  formatContent(content?: string): string | undefined {
+    return content?.split('\n').join('<br>') // Thay mỗi '\n' bằng '<br>'
+  }
   
 }

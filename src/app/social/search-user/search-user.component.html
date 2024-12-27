@@ -13,7 +13,7 @@
         @for (user of listUserResult; track user) {
         <div class="mt-2   w-full flex justify-center">
             <div class="bg-neutral-900 w-full m-1 rounded-2xl  h-[10vh]   text-white grid grid-cols-5 content-center place-items-center">
-                <img src="img\avatar\{{user.writerAvatar}}" alt="" width="70" class="rounded-full">
+                <img src="img\avatar\{{user.writerAvatar}}" alt="" width="70" class="rounded-full h-14">
                 @if(checkUserId(user.writerId)){
                     <a routerLink="/profile/{{user.writerId}}" routerLinkActive="active">
                       <p class="mr-10 font-bold" class=" hover:font-bold hover:border-spacing-0">

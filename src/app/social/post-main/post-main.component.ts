@@ -140,7 +140,9 @@ export class PostMainComponent implements OnInit {
   toggleDropdown(commentId: number): void {
     this.isDropdownOpen[commentId] = !this.isDropdownOpen[commentId];
   }
-
+  formatContent(content?: string): string | undefined {
+    return content?.split('\n').join('<br>') // Thay mỗi '\n' bằng '<br>'
+  }
   
   onDeleteComment(commentId: number): void {
     if (confirm('Bạn có chắc chắn muốn xóa bình luận này không?')) {

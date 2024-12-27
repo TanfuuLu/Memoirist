@@ -1,4 +1,4 @@
-import { Component, inject, Input, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from '../../Service/Auth.service';
@@ -11,10 +11,15 @@ import { UserProfile, UserService } from '../../Service/User.service';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   isModalOpen = false;
   userForRoute!: string | null;
+  userRole!: string | null;
   private readonly platformId = inject(PLATFORM_ID);
+  ngOnInit(): void {
+    this.userRole = this.authService.getRoleFromToken();
+    console.log(this.userRole);
+  }
   openModal(){
     this.isModalOpen =true;
   }
@@ -36,5 +41,13 @@ export class SidebarComponent {
   logout(){
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+  moveToReportDashboard(){
+    if(this.userRole == "Admin"){
+      this.router.navigate(['/report-dashboard']);
+    }else{
+      window.location.reload();
+    }
+    
   }
 }

@@ -4,7 +4,7 @@ import { PostComponent } from "./post/post.component";
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { FollowingStoryComponent } from './following-story/following-story.component';
 import { StoryComponent } from './story/story.component';
-import {  UpdateUserProfile, UserProfile, UserService } from '../../Service/User.service';
+import { FollowUserProfile, UpdateUserProfile, UserProfile, UserService } from '../../Service/User.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AuthService } from '../../Service/Auth.service';
 @Component({
@@ -39,17 +39,22 @@ export class ProfileComponent implements OnInit {
   };
   writerImg!: string;
   imagePreviews: string = '';
-  countFollower?: number; 
+  countFollower?: number;
   countFollowing?: number;
   userId!: string | null;
   updateProfileForm!: FormGroup;
   isModalOpen: boolean = false;
-  updateUserProfile:  UpdateUserProfile = {
+  updateUserProfile: UpdateUserProfile = {
     writerAvatar: '',
     writerBio: '',
     writerFullname: '',
     writerUsername: '',
   };
+  isFollowersModalOpen = false;
+  isFollowingModalOpen = false;
+  followersList: FollowUserProfile[] = [];
+  followingList: FollowUserProfile[] = [];
+
   private readonly platformId = inject(PLATFORM_ID);
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private fb: FormBuilder) {
     this.updateProfileForm = this.fb.group({
@@ -58,6 +63,7 @@ export class ProfileComponent implements OnInit {
       writerAvatar: [this.userProfile.writerAvatar], // Avatar sẽ là file input
       writerBio: ['', [Validators.maxLength(500)]],
     });
+
   }
   openModal(): void {
     this.isModalOpen = true;
@@ -72,6 +78,8 @@ export class ProfileComponent implements OnInit {
 
   closeModal(): void {
     this.isModalOpen = false;
+    this.isFollowersModalOpen = false;
+    this.isFollowingModalOpen = false;
   }
   onSubmit(): void {
     if (this.updateProfileForm.valid) {
@@ -80,18 +88,19 @@ export class ProfileComponent implements OnInit {
       this.updateUserProfile.writerAvatar = this.writerImg;
       this.updateUserProfile.writerBio = this.updateProfileForm.get('writerBio')?.value;
       this.userService.updateProfile(Number(this.userId), this.updateUserProfile)
-      .subscribe({
-        next: (result) =>{
-          console.log(result);
-          // this.userProfile = result;
-          this.closeModal();
-        }
-    })
+        .subscribe({
+          next: (result) => {
+            console.log(result);
+            this.userProfile = result;
+            this.closeModal();
+          }
+        })
     } else {
       console.log('Form không hợp lệ!');
     }
   }
   ngOnInit(): void {
+    console.log(this.authService.getRoleFromToken());
     this.authService.checkLogin();
     if (isPlatformBrowser(this.platformId)) {
       this.userId = sessionStorage.getItem("userId");
@@ -102,9 +111,12 @@ export class ProfileComponent implements OnInit {
         .subscribe({
           next: (profile) => {
             this.userProfile = profile;
+            this.writerImg = this.userProfile.writerAvatar!;
             console.log(this.userProfile);
             this.calCountFollower();
             this.calCountFollowing();
+            this.loadFollowers();
+            this.loadFollowing();
           }
         })
     }
@@ -120,21 +132,21 @@ export class ProfileComponent implements OnInit {
 
     if (input.files && input.files.length > 0) {
       const file = input.files[0]; // Lấy file đầu tiên người dùng chọn
-  
+
       // Tạo URL Base64 để hiển thị ảnh preview
       const reader = new FileReader();
-  
+
       reader.onload = () => {
         if (reader.result) {
           this.imagePreviews = reader.result.toString(); // Cập nhật URL preview
         }
       };
-  
+
       reader.onerror = (err) => {
         console.error('Error reading file:', err);
       };
-  
-      reader.readAsDataURL(file); 
+
+      reader.readAsDataURL(file);
       // Gửi ảnh lên server
       this.userService.uploadImages(file).subscribe({
         next: (fileName) => {
@@ -151,6 +163,41 @@ export class ProfileComponent implements OnInit {
       console.log('No files selected');
     }
   }
+  showFollowersList() {
+    this.isFollowersModalOpen = true;
+  }
+
+  showFollowingList() {
+    this.isFollowingModalOpen = true;
+  }
+  loadFollowers() {
+    this.userService.getFollowerUser(Number(this.userId))
+    .subscribe({
+      next:(result) => {
+        this.followersList  = result;
+        console.log(this.followersList);
+      }
+    })
+
+  }
+  loadFollowing() {
+    this.userService.getFollowingUser(Number(this.userId))
+    .subscribe({
+      next: (result) => {
+        this.followingList = result;
+        console.log(this.followingList);
+      }
+    })
+  }
+  closeModalOnOutsideClick(event: MouseEvent) {
+    // Nếu vùng click không phải là modal nội dung, đóng modal
+    this.isFollowersModalOpen = false;
+    this.isFollowingModalOpen = false;
+  }
   
+  preventModalClose(event: MouseEvent) {
+    // Ngăn sự kiện click từ modal nội dung truyền lên overlay
+    event.stopPropagation();
+  }
 
 }

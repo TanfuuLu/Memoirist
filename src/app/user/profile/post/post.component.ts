@@ -9,11 +9,11 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgClass,ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, RouterLinkActive, NgClass, ReactiveFormsModule, CommonModule],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit {
   @Input() userProfile: any;
   isModalOpen = false;
   listPost!: Post[];
@@ -27,24 +27,24 @@ export class PostComponent implements OnInit{
   base64Images: string[] = [];
   imagePreviews: string[] = [];
   dropdownStates: Map<number, boolean> = new Map();
-  editForm!: FormGroup 
+  editForm!: FormGroup
   isEditing = false;
   editedPost!: Post | null;
 
-  openModal(){
-    this.isModalOpen =true;
+  openModal() {
+    this.isModalOpen = true;
   }
-  closeModal(){
+  closeModal() {
     this.isModalOpen = false;
   }
-  closeModalClickOutside(event: MouseEvent){
+  closeModalClickOutside(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-    if(targetElement.classList.contains('fixed')){
+    if (targetElement.classList.contains('fixed')) {
       this.closeModal();
     }
   }
   constructor(private postService: PostService, private authService: AuthService, private http: HttpClient,
-     private router: ActivatedRoute, private cdr: ChangeDetectorRef, private route: Router) {
+    private router: ActivatedRoute, private cdr: ChangeDetectorRef, private route: Router) {
     this.postForm = new FormGroup({
       postContext: new FormControl(null, [Validators.required])
     })
@@ -56,16 +56,16 @@ export class PostComponent implements OnInit{
     this.authService.checkLogin();
 
     const userId = this.router.snapshot.paramMap.get('id');
-    if(userId){
+    if (userId) {
       this.postService.getListByWriterId(Number(userId))
-      .subscribe({
-        next: (post) => {
-          this.listPost = post;
-        }
-      })
+        .subscribe({
+          next: (post) => {
+            this.listPost = post;
+          }
+        })
     }
   }
-  calcuCommentedPost(listIdCommented?: number[] | null): number | undefined{
+  calcuCommentedPost(listIdCommented?: number[] | null): number | undefined {
     return listIdCommented?.length;
   }
   isPostContextValid(): boolean {
@@ -78,15 +78,15 @@ export class PostComponent implements OnInit{
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-  
+
     if (input.files && input.files.length > 0) {
       const files: File[] = Array.from(input.files);
-  
+
       const previews: string[] = []; // Khởi tạo mảng để lưu preview
-  
+
       files.forEach((file) => {
         const reader = new FileReader();
-  
+
         reader.onload = () => {
           if (reader.result) {
             console.log('Base64 Data:', reader.result); // Log kiểm tra Base64
@@ -95,14 +95,14 @@ export class PostComponent implements OnInit{
             console.log('Updated imagePreviews:', this.imagePreviews); // Log kiểm tra mảng
           }
         };
-  
+
         reader.onerror = (err) => {
           console.error('Error reading file:', err);
         };
-  
+
         reader.readAsDataURL(file); // Chuyển file sang Base64
       });
-  
+
       // Gửi ảnh lên server
       this.postService.uploadImages(files).subscribe({
         next: (fileNames) => {
@@ -142,7 +142,7 @@ export class PostComponent implements OnInit{
       })
 
   }
-  toggleLike(post: Post){
+  toggleLike(post: Post) {
     const writerId = this.userProfile.writerId;
 
     this.postService.likePost(writerId, post.postId).subscribe({
@@ -150,7 +150,7 @@ export class PostComponent implements OnInit{
         post.listWriterLikePost = result.listWriterLikePost;
         this.postService.getListPost().subscribe({
           next: (result) => {
-            
+
           }
         })
       },
@@ -162,21 +162,21 @@ export class PostComponent implements OnInit{
   onDelete(postId: number): void {
     const userId = this.router.snapshot.paramMap.get('id');
     if (confirm('Bạn có chắc chắn muốn xóa bình luận này không?')) {
-    this.postService.deletePost(postId)
-    .subscribe({
-     next: (result) => {
-       console.log(result);
-       this.postService.getListByWriterId(Number(userId))
-       .subscribe({
-         next: (post) => {
-           this.listPost = post;
-         }
-       })
-     }
-    })
+      this.postService.deletePost(postId)
+        .subscribe({
+          next: (result) => {
+            console.log(result);
+            this.postService.getListByWriterId(Number(userId))
+              .subscribe({
+                next: (post) => {
+                  this.listPost = post;
+                }
+              })
+          }
+        })
+    }
   }
-   }
-   
+
   toggleDropdown(postId: number): void {
     const currentState = this.dropdownStates.get(postId) || false;
     this.dropdownStates.set(postId, !currentState);
@@ -187,47 +187,49 @@ export class PostComponent implements OnInit{
   isDropdownOpen(postId: number): boolean {
     return this.dropdownStates.get(postId) || false;
   }
-
-  // Hàm Edit
- onEdit(post: Post) {
-     this.isEditing = true;
-     this.editedPost = post;
-     this.editForm.patchValue({
-       postContext: post.postContext,
-     });
-   }
-   editContextPost(newContext: string) {
-     if (this.editedPost) {
-       this.editedPost.postContext = newContext; // Gán nội dung mới cho bài viết đang chỉnh sửa
-       this.postService.editContextPost(this.editedPost.postId, newContext).subscribe({
-         next: (updatedPost) => {
-           console.log('Cập nhật bài viết thành công:', updatedPost);
-           // Đồng bộ danh sách bài viết
-           const index = this.listPost?.findIndex(post => post.postId === updatedPost.postId);
-           if (index !== undefined && index !== -1) {
-             this.listPost![index] = updatedPost;
-           }
-           this.cancelEdit(); // Đóng modal chỉnh sửa
-         },
-         error: (err) => {
-           console.error('Lỗi khi chỉnh sửa bài viết:', err);
-           alert('Không thể cập nhật bài viết, vui lòng thử lại.');
-         }
-       });
-     }
-   }
- 
-   saveEdit() {
-     if (this.editForm.valid && this.editedPost) {
-       const newContext = this.editForm.get('postContext')?.value;
-       this.editContextPost(newContext);
-     } else {
-       alert('Vui lòng nhập nội dung hợp lệ.');
-     }
-   }
- 
-   cancelEdit() {
-     this.isEditing = false;
-     this.editedPost = null;
-   }
+  formatContent(content?: string): string | undefined {
+    return content?.split('\n').join('<br>') // Thay mỗi '\n' bằng '<br>'
   }
+  // Hàm Edit
+  onEdit(post: Post) {
+    this.isEditing = true;
+    this.editedPost = post;
+    this.editForm.patchValue({
+      postContext: post.postContext,
+    });
+  }
+  editContextPost(newContext: string) {
+    if (this.editedPost) {
+      this.editedPost.postContext = newContext; // Gán nội dung mới cho bài viết đang chỉnh sửa
+      this.postService.editContextPost(this.editedPost.postId, newContext).subscribe({
+        next: (updatedPost) => {
+          console.log('Cập nhật bài viết thành công:', updatedPost);
+          // Đồng bộ danh sách bài viết
+          const index = this.listPost?.findIndex(post => post.postId === updatedPost.postId);
+          if (index !== undefined && index !== -1) {
+            this.listPost![index] = updatedPost;
+          }
+          this.cancelEdit(); // Đóng modal chỉnh sửa
+        },
+        error: (err) => {
+          console.error('Lỗi khi chỉnh sửa bài viết:', err);
+          alert('Không thể cập nhật bài viết, vui lòng thử lại.');
+        }
+      });
+    }
+  }
+
+  saveEdit() {
+    if (this.editForm.valid && this.editedPost) {
+      const newContext = this.editForm.get('postContext')?.value;
+      this.editContextPost(newContext);
+    } else {
+      alert('Vui lòng nhập nội dung hợp lệ.');
+    }
+  }
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.editedPost = null;
+  }
+}

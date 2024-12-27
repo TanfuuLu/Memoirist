@@ -1,18 +1,18 @@
 <div class=" w-full  " style="background-image: url('img/background_web.png')">
   <!-- Sticky bar topic  -->
   <div class="flex justify-center w-full text-center text-white ">
-    <h1 class="font-bold text-lg w-full fixed ">Newfeeds</h1>
+    <h1 class="font-bold text-lg w-full fixed ">NEWFEEDS</h1>
   </div>
   <!-- Body Context -->
   <div class="rounded-3xl mt-[5vh]">
-    <div class="mx-[15%] ml-[20%] rounded-t-3xl overflow-scroll no-scrollbar h-[95vh] bg-black">
+    <div class="mx-[20%] ml-[25%] rounded-t-3xl overflow-scroll no-scrollbar h-[95vh] bg-black">
       <div class="flex">
         <div class="bg-neutral-900 min-w-[100%] rounded-3xl">
           <div class="flex my-2 justify-between">
             <img src="img/avatar/{{user?.writerAvatar}}" class="m-2 mt-2 rounded-full w-12 h-12" />
             <p class="m-5 text-white">What's news</p>
             <button type="button" class="px-6 m-2 mx-5  rounded-3xl bg-neutral-300 text-black" (click)="openModal()">
-              Đăng bài
+              ĐĂNG BÀI
             </button>
             <div [ngClass]="isModalOpen ? 'block': 'hidden'"
               class=" text-white fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center overflow-y-scroll no-scrollbar"
@@ -21,7 +21,7 @@
                 <h2 class="m-5 flex justify-center font-bold">New Post</h2>
                 <div class="bg-neutral-900 rounded-xl shadow-xl border  border-neutral-700">
                   <div class="p-2 pb-0 rounded-lg flex">
-                    <img src="img/avatar/{{user?.writerAvatar}}" class="rounded-2xl w-12 h-12" alt="">
+                    <img src="img/avatar/{{user?.writerAvatar}}" class="rounded-full w-14 h-12" alt="">
                     <div class="ml-6 w-full">
                       <p>{{user?.writerUsername}}</p>
                       <p class="text-xs text-neutral-600">{{formattedDate}}</p>
@@ -85,7 +85,7 @@
           </div>
           <div class="col-span-11 text-white">
             <div class="grid grid-cols-3 justify-items-between ">
-              <div class="flex col-span-2 px-4">
+              <div class="flex col-span-2 px-4 mt-2">
                 @if(checkUserId(post.postWriterId)){
                 <a routerLink="/profile/{{post.postWriterId}}" routerLinkActive="active">
                   <p class="mr-10 font-bold" class=" hover:font-bold hover:border-spacing-0">
@@ -103,7 +103,7 @@
                 <p class="text-xs mt-1 text-gray-400 m-1">{{post.postDateTime}}</p>
               </div>
 
-              <div *ngIf="post.postWriterId === user?.writerId" class="cols-span-1 px-5 items-center justify-self-end">
+              <div *ngIf="post.postWriterId === user?.writerId || userRole == 'Admin'" class="cols-span-1 px-5 items-center justify-self-end">
                 <div class="relative inline-block text-left">
                   <!-- Button kích hoạt dropdown -->
                   <button (click)="toggleDropdown(post.postId)" class="inline-flex w-full justify-center rounded-md">
@@ -114,10 +114,9 @@
                   </button>
 
                   <!-- Dropdown menu -->
-                  <div *ngIf="isDropdownOpen(post.postId)" class="absolute right-0 z-10 mt-2 w-12 rounded-md bg-neutral-900">
+                  <div *ngIf="isDropdownOpen(post.postId) " class="absolute right-0 z-10 mt-2 w-12 rounded-md bg-neutral-900">
                     <div class="py-1">
-                     
-                      <button (click)="onEdit(post)"
+                      <button *ngIf="post.postWriterId === user?.writerId" (click)="onEdit(post) "
                         class="block w-full text-left px-4 py-2 text-sm text-neutral-300 hover:bg-neutral-950">
                         Edit
                       </button>
@@ -164,7 +163,7 @@
                 <!-- <pre class="mb-2">
                   {{post.postContext}}
                 </pre> -->
-                <p class="pl-2" [innerHTML]="formatContent(post.postContext!)"></p>
+                <p class="pl-2 w-[95%]" [innerHTML]="formatContent(post.postContext!)"></p>
               </a>
               <div class="mr-10" *ngIf="post.postPictureUrl?.length ">
                 <div class="flex-nowrap flex overflow-scroll  overflow-y-hidden scrollbar mb-2">

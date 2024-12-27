@@ -2,17 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Story, StoryReport, StoryService } from '../../Service/Story.service';
 import { report } from 'process';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../Service/Auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-report-story',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './report-story.component.html',
   styleUrl: './report-story.component.scss'
 })
 export class ReportStoryComponent implements OnInit {
   listReported!: StoryReport[];
-  constructor(private storyService: StoryService){
+  userRole!: string | null;
+  constructor(private storyService: StoryService, private authService: AuthService){
 
   }
   ngOnInit(): void {
@@ -25,6 +28,7 @@ export class ReportStoryComponent implements OnInit {
         console.log(this.listReported);
       }
     })
+    this.userRole = this.authService.getRoleFromToken();
   }
   acceptReportButton(reportId: number){
     this.storyService.acceptReport(reportId)

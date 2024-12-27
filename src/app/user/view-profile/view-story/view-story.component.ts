@@ -26,7 +26,7 @@ export class ViewStoryComponent implements OnInit{
     currentDate = new Date();
     formattedDate = this.currentDate.toLocaleDateString('vi-VN');
     reportForm: FormGroup;
-    reportReasons = ['Nội dung không phù hợp', 'Xuyên tạc/liên quan chính trị', 'Đạo sản phẩm', 'Tác phẩm 18+'];
+    reportReasons = ['Nội dung không phù hợp', 'Xuyên tạc/liên quan chính trị', 'Đạo sản phẩm', 'Tác phẩm 18+', 'Vi phạm bản quyền'];
   
   constructor(private fb: FormBuilder,private authService: AuthService, private storyService: StoryService, private chapterService: ChapterService, private userService: UserService){
     this.reportForm = this.fb.group({

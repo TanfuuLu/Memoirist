@@ -29,6 +29,13 @@ export interface UserProfile {
   listFollower?: number[];
   listFollowing?: number[];
 }
+export interface FollowUserProfile {
+  writerId: number;
+  writerFullname?: string | null;
+  writerUsername?: string | null;
+  writerAvatar?: string | null;
+}
+
 export interface UpdateUserProfile {
   writerFullname?: string | null;
   writerUsername?: string | null;
@@ -65,5 +72,11 @@ export class UserService {
                 'Accept': 'application/json',
             });
     return this.http.put<UserProfile>(`${this.apiUrl}/writer-update-${userId}`, updateUser, {headers});
+  }
+  getFollowerUser(idUser: number): Observable<FollowUserProfile[]>{
+    return this.http.get<FollowUserProfile[]>(`${this.apiUrl}/writer-${idUser}/get-list-follower`);
+  }
+  getFollowingUser(idUser: number): Observable<FollowUserProfile[]>{
+    return this.http.get<FollowUserProfile[]>(`${this.apiUrl}/writer-${idUser}/get-list-following`);
   }
 }

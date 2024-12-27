@@ -6,19 +6,19 @@
 <div class="w-screen h-screen flex">
     <div class=" w-[100%] bg-black flex border-r-2" >
         <div class="bg-none ml-[8%] mt-[5vh] h-[95vh] w-full   overflow-scroll no-scrollbar rounded-t-3xl ">
-          <div class="flex w-screen">
+          <div class="flex w-screen h-[50%]">
             <div class=" h-[50%] w-[90%] border-b-2 mt-1 p-2 text-white">
                 <div class="pl-5 ">
                     <p class="text-4xl font-semibold p-10 pl-0 pb-5 ">{{storyInfo?.storyName}}</p>
                     <p class="font-light text-xs">{{storyInfo?.storyDateWrited}}</p>
                     <p class="flex ">Tác Giả: {{storyInfo?.storyAuthor}}</p>
                 </div>
-                <div class="px-5 overflow-scroll no-scrollbar h-[40%] mt-5">
-                    <p> {{storyInfo?.storyIntroduction}}
+                <div class="px-5 overflow-scroll no-scrollbar max-h-[18vh] mt-5">
+                    <p [innerHTML]="formatContent(storyInfo?.storyIntroduction!)">
                     </p>
                 </div>
                <div class="flex justify-between">
-                <p class="pl-5 text-xs">Lăn xuóng để xem thêm</p>
+                <p class="pl-5 text-xs">Lăn xuống để xem thêm</p>
                 <a class="text-white border mr-5 p-1 rounded-2xl" href="" routerLink="/story/{{storyInfo?.storyId}}/add-chapter"> Thêm Chương</a>
                </div>
             </div>

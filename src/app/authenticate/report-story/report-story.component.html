@@ -1,54 +1,62 @@
-<div class=" w-full  " style="background-image: url('img/background_web.png')">
-    <!-- Sticky bar topic  -->
-    <div class="flex justify-center w-full text-center text-white ">
-        <h1 class="font-bold text-lg w-full fixed ">BÁO CÁO TRUYỆN</h1>
-    </div>
-    <!-- Body Context -->
-    <div class="rounded-3xl mt-[5vh]">
-        <div class="ml-[12vh]  rounded-t-3xl h-[95vh] bg-black">
-            <div
-                class=" bg-neutral-800 text-white w-full h-12 rounded-xl grid grid-cols-7 content-center place-items-center ">
-                <div class="col-span-2">
-                    TÊN TRUYỆN
-                </div>
-                <div class="col-span-1">
-                    TÁC GIẢ
-                </div>
-                <div class="col-span-1">
-                    NGÀY BÁO CÁO
-                </div>
-                <div class="col-span-2">
-                    LÍ DO BÁO CÁO
-                </div>
-                <div class="col-span-1">
-                    DUYỆT/TỪ CHỐI
-                </div>
-            </div>
-            <div class="bg-neutral-950 w-full h-[88vh] overflow-scroll  no-scrollbar">
-                @for (item of listReported; track item) {
+@if(userRole == "Admin"){
+    <div class=" w-full  " style="background-image: url('img/background_web.png')">
+        <!-- Sticky bar topic  -->
+        <div class="flex justify-center w-full text-center text-white ">
+            <h1 class="font-bold text-lg w-full fixed ">BÁO CÁO TRUYỆN</h1>
+        </div>
+        <!-- Body Context -->
+        <div class="rounded-3xl mt-[5vh]">
+            <div class="ml-[12vh]  rounded-t-3xl h-[95vh] bg-black">
                 <div
-                    class="bg-neutral-900 text-white p-2 my-3 rounded-2xl w-full max-h-52 min-h-12 grid grid-cols-7 content-center place-items-center">
+                    class=" bg-neutral-800 text-white w-full h-12 rounded-xl grid grid-cols-7 content-center place-items-center ">
                     <div class="col-span-2">
-                        {{item.storyName}}
+                        TÊN TRUYỆN
                     </div>
                     <div class="col-span-1">
-                        {{item.storyWriterName}}
+                        TÁC GIẢ
                     </div>
                     <div class="col-span-1">
-                        {{item.dateTimeReport}}
+                        NGÀY BÁO CÁO
                     </div>
                     <div class="col-span-2">
-                        {{item.violation}}
+                        LÍ DO BÁO CÁO
                     </div>
                     <div class="col-span-1">
-                        <button (click)="acceptReportButton(item.reportId!)" class="border bg-blue-800 hover:bg-blue-900 rounded-2xl p-2 ">Duyệt</button>
-                        |
-                        <button (click)="rejectReportButton(item.reportId!)" class="border bg-rose-700 hover:bg-rose-800 rounded-2xl p-2 ">Từ chối</button>
+                        DUYỆT/TỪ CHỐI
                     </div>
                 </div>
-                }
-
+                <div class="bg-neutral-950 w-full h-[88vh] overflow-scroll  no-scrollbar">
+                    @for (item of listReported; track item) {
+                    <div
+                        class="bg-neutral-900 text-white p-2 my-3 rounded-2xl w-full max-h-52 min-h-12 grid grid-cols-7 content-center place-items-center">
+                        <div class="col-span-2">
+                            <a routerLink="/story/{{item.storyReportId}}/story-info">{{item.storyName}}</a>
+                        </div>
+                        <div class="col-span-1">
+                            {{item.storyWriterName}}
+                        </div>
+                        <div class="col-span-1">
+                            {{item.dateTimeReport}}
+                        </div>
+                        <div class="col-span-2">
+                            {{item.violation}}
+                        </div>
+                        <div class="col-span-1">
+                            <button (click)="acceptReportButton(item.reportId!)" class="border bg-blue-800 hover:bg-blue-900 rounded-2xl p-2 ">Duyệt</button>
+                            |
+                            <button (click)="rejectReportButton(item.reportId!)" class="border bg-rose-700 hover:bg-rose-800 rounded-2xl p-2 ">Từ chối</button>
+                        </div>
+                    </div>
+                    }
+    
+                </div>
             </div>
         </div>
     </div>
-</div>
+}@else {
+    <div class="bg-black ml-[12vh] text-white flex h-screen justify-center items-center">
+       
+            <p class="text-5xl">Error Không Biết <br>Nhưng Mà Bạn Không Có Quyền Vào Đây </p>
+
+    </div>
+}

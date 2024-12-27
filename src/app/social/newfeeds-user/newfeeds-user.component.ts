@@ -32,7 +32,7 @@ export class NewfeedsUserComponent implements OnInit {
   formattedDate = this.currentDate.toLocaleDateString('vi-VN');
   imagePreviews: string[] = [];
   selectedPostId: number | null = null;
- 
+  userRole!: string | null;
   dropdownStates: Map<number, boolean> = new Map();
   editForm!: FormGroup 
   isEditing = false;
@@ -101,11 +101,13 @@ export class NewfeedsUserComponent implements OnInit {
       .subscribe({
         next: ((post) => {
           this.listPostNewfeeds = post;
+          console.log(this.listPostNewfeeds);
         })
       })
     this.authService.currentUser$.subscribe(user => {
       this.user = user;
     })
+    this.userRole = this.authService.getRoleFromToken();
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
